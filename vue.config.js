@@ -1,4 +1,3 @@
-const { defineConfig } = require('@vue/cli-service')
 module.exports = {
   configureWebpack: {
     output: {
@@ -7,5 +6,6 @@ module.exports = {
   },
   css: {
     extract: false,
-  }
+  },
+  runtimeCompiler: true
 }
