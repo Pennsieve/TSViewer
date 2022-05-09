@@ -157,8 +157,8 @@
             immediate: true
           },
           package: {
-            handler: function(data) {
-              this.$store.dispatch('setActiveViewer', data)
+            handler: async function(data) {
+              await this.$store.dispatch('openViewer', data)
             },
             immediate: true
           }
@@ -170,7 +170,7 @@
           },
           package: {
             type: Object,
-            default: {}
+            default: () => {}
           }
         },
         computed: {
@@ -346,8 +346,8 @@
             onAnnLayersInitialized: function () {
                 this.$refs.scrubber.getAnnotations()
             },
-            onChannelsInitialized: function (channels) {
-                this.initViewerStart((channels))
+            onChannelsInitialized: function () {
+                this.initViewerStart()
                 // TODO: Bring back
                 this.$refs.scrubber.initSegmentSpans()
                 // Resize the canvas as label length likely changed
@@ -471,8 +471,8 @@
                 const n = ( ( (this.constants['DEFAULTDPI'] * window.devicePixelRatio)/(globalZoomMult * rowscale) )/25.4).toFixed(1);
                 return n+ ' ' + item.unit + '/mm'
             },
-            initViewerStart: function(channels) {
-                // const channels = this.activeViewer.channels
+            initViewerStart: function() {
+                let channels = this.activeViewer.channels
                 if (channels.length > 0) {
                     // Find Global start and end
                     this.ts_start = channels[0].content.start

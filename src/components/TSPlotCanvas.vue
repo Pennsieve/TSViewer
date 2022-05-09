@@ -21,6 +21,7 @@
         head,
         propEq,
         propOr,
+        pathOr,
         path,
         findIndex,
         sum,
@@ -58,7 +59,7 @@
         },
         computed: {
             activeViewer: function() {
-              return this.$store.state.activeViewer
+              return this.$store.getters.activeViewer
             },
             viewerChannels: function() {
               return this.$store.state.viewerChannels
@@ -77,11 +78,11 @@
             },
             timeSeriesUrl: function() {
                 // const url = discoverUrl
-                const token = this.$store.state.userToken
-                return 'wss://api.pennsieve.net/streaming/ts/query?session=' + token + '&package=' + this.packageId
+                const token = this.$store.getters.userToken
+                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + token + '&package=' + encodeURIComponent(this.packageId)
             },
             packageId: function() {
-              this.$store.activeViewer.package
+              return pathOr('', ['content', 'id'], this.activeViewer)
             }
         },
         data: function () {
@@ -385,7 +386,6 @@
                 return id
             },
             initChannels: function(channels) {
-
                 if (!channels) {
                     channels = this.activeViewer.channels
                 }
@@ -1440,10 +1440,9 @@
             // _________________
             // WEBSOCKET METHODS
             openWebsocket: function() {
-
                 //if the websocket is opening or already open, don't open a new one
                 if (this._websocket && (this._websocket.readyState === 0 || this._websocket.readyState === 1) ) {
-                    return;
+                  return;
                 }
 
                 let url = this.timeSeriesUrl

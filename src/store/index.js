@@ -33,7 +33,9 @@ const store = {
       return state.viewerChannels.filter(channel => {
         return channel.selected
       })
-    }
+    },
+    activeViewer: state => state.activeViewer,
+    userToken: state => state.userToken
   },
 
   mutations: {
@@ -154,7 +156,6 @@ const store = {
 }
 
 const initialState = () => ({
-  activeViewer: {},
   viewerSidePanelOpen: false,
   viewerSlideInfo: {
     curRotation: 0,
