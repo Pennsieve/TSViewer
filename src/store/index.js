@@ -41,7 +41,8 @@ const store = {
     viewerActiveTool: state => state.viewerActiveTool,
     activeAnnotation: state => state.activeAnnotation,
     viewerSidePanelOpen: state => state.viewerSidePanelOpen,
-    viewerAnnotations: state => state.viewerAnnotations
+    viewerAnnotations: state => state.viewerAnnotations,
+    userToken: state => state.userToken
   },
 
   mutations: {

@@ -67,19 +67,22 @@
               return this.$store.getters.viewerMontageScheme
             },
             canvasStyle: function() {
-                return {
-                    width: this.cWidth  + 'px',
-                    height: this.pHeight + 'px'
-                }
+              return {
+                  width: this.cWidth  + 'px',
+                  height: this.pHeight + 'px'
+              }
             },
             pHeight: function () {
-                return this.cHeight - 20
+              return this.cHeight - 20
             },
             timeSeriesUrl: function() {
-                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + this.$store.state.userToken + '&package=' + encodeURIComponent(this.packageId)
+              return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + this.userToken + '&package=' + encodeURIComponent(this.packageId)
             },
             packageId: function() {
               return propOr('', 'packageId', this.activeViewer)
+            },
+            userToken: function() {
+              return this.$store.getters.userToken
             }
         },
         data: function () {
@@ -865,7 +868,7 @@
                             })
 
                             const req = {
-                                session: this.$store.state.userToken,
+                                session: this.userToken,
                                 minMax: true,
                                 startTime: curRequest.start,
                                 endTime: requestEndTime,

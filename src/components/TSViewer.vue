@@ -151,8 +151,8 @@
               immediate: true
           },
           userToken: {
-            handler: function(token) {
-              this.$store.dispatch('updateUserToken', token)
+            handler: async function(token) {
+              await this.$store.dispatch('updateUserToken', token)
             },
             immediate: true
           },
