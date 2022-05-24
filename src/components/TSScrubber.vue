@@ -52,13 +52,16 @@
         },
         computed: {
             activeViewer: function() {
-              return this.$store.state.activeViewer
+              return this.$store.getters.activeViewer
             },
             viewerChannels: function() {
-              return this.$store.state.viewerChannels
+              return this.$store.getters.viewerChannels
             },
             viewerAnnotations: function() {
-              return this.$store.state.viewerAnnotations
+              return this.$store.getters.viewerAnnotations
+            },
+            userToken: function() {
+              return this.$store.getters.userToken
             },
             ts_start_str: function() {
                 return this.getUTCTimeString(this.ts_start)
@@ -214,86 +217,16 @@
             // ------- Annotation Functions -------
             initSegmentSpans: function() {
                 // GET SEGMENTS AND GAPS
-                let fetchSpan = Math.min(this.constants['SEGMENTSPAN'], (this.ts_end - this.ts_start));
+                /*let fetchSpan = Math.min(this.constants['SEGMENTSPAN'], (this.ts_end - this.ts_start));
                 for (let i=0; i<this.viewerChannels.length; i++) {
                     this._requestSegmentSpan(this.viewerChannels[i].id,
                     i, this.ts_start, (this.ts_start + fetchSpan), 0)
-                }
-            },
-            _requestSegmentSpan: function(channel, channelIdx, start, end, ix) {
-              const max_recursion = this.constants['MAXRECURSION']
-
-              const url = `https://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/ts/retrieve/segments?session=${this.$store.state.userToken}&channel=${channel}&start=${start}&end=${end}`;
-              this.sendXhr(url)
-                .then(resp => {
-                  // Parse response into vector
-                  let vector = new Array(resp.length * 2)
-                  let i = 0;
-                  for (let j = 0; j < resp.length; j++) {
-                    vector[i] = resp[j][0];
-                    vector[i+1] = resp[j][1];
-                    i = i+2;
-
-                    // append to global
-                    const pxStart = Math.floor(((resp[j][0]-this.ts_start)/ (this.ts_end - this.ts_start))*5000);
-                    const pxEnd = Math.ceil(((resp[j][1]-this.ts_start) / (this.ts_end - this.ts_start))*5000);
-                    // console.log('st: ' + pxStart + '  nd: ' + pxEnd)
-                    this.segments.fill(1, pxStart, pxEnd);
-                  }
-
-                  // Find Global spans
-                  let ii = 0;
-                  let inSegment = false;
-                  let startSegment = 0;
-                  this.segmentSpans = [];
-                  while (ii < (this.segments.length-1)) {
-                    if (!this.segments[ii] && !inSegment) {
-                        ii++;
-                        continue
-                    } else if (!this.segments[ii]) {
-                        // create segment
-                        this.segmentSpans = this.segmentSpans.concat([startSegment, ii]);
-                        inSegment = false;
-                    } else if (!inSegment) {
-                        startSegment = ii;
-                        inSegment = true;
-                    }
-                    ii++;
-                  }
-
-                  if (inSegment) {
-                      this.segmentSpans = this.segmentSpans.concat([startSegment, ii]);
-                  }
-                  this.segmentSpans = this.segmentSpans.concat([5000]);
-
-                  // remove first value if there is overlap with previous request
-                  let firstValue = vector[0];
-                  let chCongig = this.viewerChannels[channelIdx];
-                  if (firstValue < chCongig.dataSegments[chCongig.dataSegments.length-1]) {
-                    vector.shift();
-                    vector.shift();
-                  }
-
-                  chCongig.dataSegments = chCongig.dataSegments.concat(vector.sort(function(a, b) {return a - b}));
-
-                  this.$store.dispatch('updateViewChannel', chCongig)
-
-                  // If we did not request all segment-spans yet, get next segment or bail when recursion limit.
-                  let span = end - start;
-                  if ((start + span) < this.ts_end && ix < max_recursion) {
-                      this._requestSegmentSpan(channel, channelIdx, end, (end+span), ix + 1);
-                  } else {
-                      this.renderSegments();
-                  }
-              })
-              .catch(err => {
-                  console.log(err)
-              })
+                }*/
             },
             getAnnotations: function() {
                 const layerIds = map(obj => obj.id, this.viewerAnnotations);
                 const baseUrl = `${this.config.apiUrl}/timeseries/${this.activeViewer.content.id}/annotations/window`;
-                var url = baseUrl + `?api_key=${this.$store.state.userToken}&aggregation=count&start=${this.ts_start}&end=${this.ts_end}&period=${this.period}&mergePeriods=true`
+                var url = baseUrl + `?api_key=${this.userToken}&aggregation=count&start=${this.ts_start}&end=${this.ts_end}&period=${this.period}&mergePeriods=true`
                 for (let i in layerIds) {
                     url = url + `&layerIds=${layerIds[i]}`
                 }

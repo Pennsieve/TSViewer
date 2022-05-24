@@ -4,6 +4,7 @@ import { viewerSidePanelTypes, viewerToolTypes } from '@/utils/constants'
 const store = {
   state: {
     userToken: '',
+    selectedPackage: {},
     // active viewer contains the package info response
     activeViewer: {},
     viewerSidePanelOpen: false,
@@ -34,8 +35,14 @@ const store = {
         return channel.selected
       })
     },
+    viewerChannels: state => state.viewerChannels,
+    viewerMontageScheme: state => state.viewerMontageScheme,
     activeViewer: state => state.activeViewer,
-    userToken: state => state.userToken
+    userToken: state => state.userToken,
+    viewerActiveTool: state => state.viewerActiveTool,
+    activeAnnotation: state => state.activeAnnotation,
+    viewerSidePanelOpen: state => state.viewerSidePanelOpen,
+    viewerAnnotations: state => state.viewerAnnotations
   },
 
   mutations: {
@@ -58,9 +65,6 @@ const store = {
     },
     UPDATE_VIEWER_SLIDE_INFO (state, newSlideInfo) {
       state.viewerSlideInfo = newSlideInfo
-    },
-    CREATE_ANNOTATION (state, { annotation, index }) {
-      state.viewerAnnotations[index].annotations.push(annotation)
     },
     SET_CHANNELS (state, channels) {
       state.viewerChannels = channels
@@ -108,16 +112,18 @@ const store = {
     SET_VIEWER_MONTAGE_SCHEME (state, data) {
       state.viewerMontageScheme = data
     },
-    SET_USER_TOKEN(state, data) {
+    UPDATE_USER_TOKEN(state, data) {
       state.userToken = data
+    },
+    // Leveraged to get individual package state to package details route
+    SELECT_PACKAGE(state, data) {
+      state.selectedPackage = data
     },
   },
 
   actions: {
     openViewer: ({ commit }, evt) =>
       commit('OPEN_VIEWER', evt),
-    closeViewer: ({ commit }, evt) =>
-      commit('CLEAR_STATE', evt),
     setSidePanel: ({ commit }, evt) =>
       commit('SET_SIDE_PANEL', evt),
     setActiveTool: ({ commit }, evt) =>
@@ -130,11 +136,6 @@ const store = {
       commit('SET_ACTIVE_ANNOTATION_LAYER', evt),
     setAnnotations: ({ commit }, annotations) =>
       commit('SET_ANNOTATIONS', annotations),
-    createAnnotation: ({ commit, state }, annotation) => {
-      const index = getLayerIndex('layer_id', annotation, state.viewerAnnotations)
-      commit('CREATE_ANNOTATION', { annotation, index })
-      commit('SET_ACTIVE_ANNOTATION', annotation)
-    },
     setActiveAnnotation: ({ commit }, data) =>
       commit('SET_ACTIVE_ANNOTATION',  data),
     updateViewerSlideInfo: ({ commit }, evt) => {
@@ -150,12 +151,14 @@ const store = {
       commit('SET_VIEWER_ERRORS', evt),
     setViewerMontageScheme: ({commit}, evt) =>
       commit('SET_VIEWER_MONTAGE_SCHEME', evt),
-    setUserToken: ({commit}, evt) =>
-      commit('SET_USER_TOKEN', evt)
+    setSelectedPackage: ({commit}, evt) => commit('SELECT_PACKAGE', evt),
+    updateUserToken: ({commit}, evt) =>
+      commit('UPDATE_USER_TOKEN', evt)
   }
 }
 
 const initialState = () => ({
+  activeViewer: {},
   viewerSidePanelOpen: false,
   viewerSlideInfo: {
     curRotation: 0,
@@ -177,12 +180,5 @@ const initialState = () => ({
   viewerActiveTool: viewerToolTypes.PAN,
   viewerMontageScheme: 'NOT_MONTAGED'
 })
-
-const getLayerIndex = (key, data, viewerAnnotations) => {
-  const layerId = propOr('', key, data)
-  const layerIndex = findIndex(propEq('id', layerId), viewerAnnotations)
-
-  return layerIndex
-}
 
 export default store

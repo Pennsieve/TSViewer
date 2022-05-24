@@ -7,19 +7,22 @@ export default {
 
   computed: {
     activeViewer: function() {
-      return this.$store.state.activeViewer
+      return this.$store.getters.activeViewer
     },
     viewerChannels: function() {
-      return this.$store.state.viewerChannels
+      return this.$store.getters.viewerChannels
     },
     viewerAnnotations: function() {
-      return this.$store.state.viewerAnnotations
+      return this.$store.getters.viewerAnnotations
     },
     viewerSidePanelOpen: function() {
-      return this.$store.state.viewerSidePanelOpen
+      return this.$store.getters.viewerSidePanelOpen
     },
     activeAnnotation: function() {
-      return this.$store.state.activeAnnotation
+      return this.$store.getters.activeAnnotation
+    },
+    userToken: function() {
+      return this.$store.getters.userToken
     },
   },
 
@@ -72,7 +75,7 @@ export default {
       this.sendXhr(url, {
         method:'POST',
         header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
+          'Authorization': `Bearer ${this.userToken}`
         },
         body:XhrBody
       } ).then((response) => {
@@ -157,7 +160,7 @@ export default {
       self.sendXhr(url, {
         method:'PUT',
         header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
+          'Authorization': `Bearer ${this.userToken}`
         },
         body:XhrBody
       } ).then(() => {
@@ -182,7 +185,7 @@ export default {
       self.sendXhr(url, {
         method:'DELETE',
         header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
+          'Authorization': `Bearer ${this.userToken}`
         },
       } ).then(() => {
         self.$store.dispatch('deleteAnnotation', annotation)

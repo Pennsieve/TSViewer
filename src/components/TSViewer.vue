@@ -152,39 +152,46 @@
           },
           userToken: {
             handler: function(token) {
-              this.$store.dispatch('setUserToken', token)
+              this.$store.dispatch('updateUserToken', token)
             },
             immediate: true
           },
-          package: {
-            handler: async function(data) {
-              await this.$store.dispatch('openViewer', data)
+          packageId: {
+            handler: async function(id) {
+              await this.$store.dispatch('openViewer', {
+                packageId: id,
+                packageType: this.packageType
+              })
             },
             immediate: true
           }
         },
-        props : {
+        props: {
           userToken: {
             type: String,
-            default: ''
+            default: () => ''
           },
-          package: {
-            type: Object,
-            default: () => {}
+          packageId: {
+            type: String,
+            default: () => ''
+          },
+          packageType: {
+            type: String,
+            default: () => ''
           }
         },
         computed: {
           viewerChannels: function() {
-            return this.$store.state.viewerChannels
+            return this.$store.getters.viewerChannels
           },
           viewerAnnotations: function() {
-            return this.$store.state.viewerAnnotations
+            return this.$store.getters.viewerAnnotations
           },
           viewerSidePanelOpen: function() {
-            return this.$store.state.viewerSidePanelOpen
+            return this.$store.getters.viewerSidePanelOpen
           },
           viewerMontageScheme: function() {
-            return this.$store.state.viewerMontageScheme
+            return this.$store.getters.viewerMontageScheme
           },
           channelStyle: function() {
             return {
@@ -346,10 +353,10 @@
             onAnnLayersInitialized: function () {
                 this.$refs.scrubber.getAnnotations()
             },
-            onChannelsInitialized: function () {
-                this.initViewerStart()
+            onChannelsInitialized: function (channels) {
+                this.initViewerStart((channels))
                 // TODO: Bring back
-                this.$refs.scrubber.initSegmentSpans()
+                // this.$refs.scrubber.initSegmentSpans()
                 // Resize the canvas as label length likely changed
                 this.$nextTick(() => {
                     this.onResize()
@@ -471,8 +478,8 @@
                 const n = ( ( (this.constants['DEFAULTDPI'] * window.devicePixelRatio)/(globalZoomMult * rowscale) )/25.4).toFixed(1);
                 return n+ ' ' + item.unit + '/mm'
             },
-            initViewerStart: function() {
-                let channels = this.activeViewer.channels
+            initViewerStart: function(channels) {
+                // const channels = this.activeViewer.channels
                 if (channels.length > 0) {
                     // Find Global start and end
                     this.ts_start = channels[0].content.start

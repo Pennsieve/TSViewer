@@ -21,7 +21,6 @@
         head,
         propEq,
         propOr,
-        pathOr,
         path,
         findIndex,
         sum,
@@ -62,10 +61,13 @@
               return this.$store.getters.activeViewer
             },
             viewerChannels: function() {
-              return this.$store.state.viewerChannels
+              return this.$store.getters.viewerChannels
             },
             viewerMontageScheme: function() {
-              return this.$store.state.viewerMontageScheme
+              return this.$store.getters.viewerMontageScheme
+            },
+            userToken: function() {
+              return this.$store.getters.userToken
             },
             canvasStyle: function() {
                 return {
@@ -77,12 +79,10 @@
                 return this.cHeight - 20
             },
             timeSeriesUrl: function() {
-                // const url = discoverUrl
-                const token = this.$store.getters.userToken
-                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + token + '&package=' + encodeURIComponent(this.packageId)
+                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + this.userToken + '&package=' + encodeURIComponent(this.packageId)
             },
             packageId: function() {
-              return pathOr('', ['content', 'id'], this.activeViewer)
+              return propOr('', 'packageId', this.activeViewer)
             }
         },
         data: function () {
@@ -386,9 +386,6 @@
                 return id
             },
             initChannels: function(channels) {
-                if (!channels) {
-                    channels = this.activeViewer.channels
-                }
                 const chObjects = [];
                 if (channels.length > 0) {
 
@@ -464,7 +461,7 @@
                     }
 
                     this.$store.dispatch('setChannels', channelConfig)
-                    this.$emit('channelsInitialized')
+                    this.$emit('channelsInitialized', channels)
 
                 }
 
@@ -871,7 +868,7 @@
                             })
 
                             const req = {
-                                session: this.$store.state.userToken,
+                                session: this.userToken,
                                 minMax: true,
                                 startTime: curRequest.start,
                                 endTime: requestEndTime,
@@ -1507,21 +1504,19 @@
                   this.$store.dispatch('setViewerErrors', { error: 'JSON Parse Error' })
                 }
 
-                let virtualChannels = undefined
-
                 if (data.channelDetails) {
-                  const baseChannels = this.activeViewer.channels
-                  virtualChannels = data.channelDetails.map(({ id, name }) => {
-                    const baseChannel = baseChannels.find(ch => (ch.content.id === id))
+                  // const baseChannels = this.activeViewer.channels
+                  const virtualChannels = data.channelDetails.map(({ id, name, unit, channelType, end, start, rate }) => {
+                    // const baseChannel = baseChannels.find(ch => (ch.content.id === id))
                     const content = {
                       id,
                       name,
-                      channelType: baseChannel.content.channelType,
+                      channelType: channelType,
                       label: name,
-                      unit: baseChannel.content.unit,
-                      rate: baseChannel.content.rate,
-                      start: baseChannel.content.start,
-                      end: baseChannel.content.end,
+                      unit: unit,
+                      rate: rate,
+                      start: start,
+                      end: end,
                       virtualId: `${id}_${name}`
                     }
                     // ensure that channel ids are unique for montages

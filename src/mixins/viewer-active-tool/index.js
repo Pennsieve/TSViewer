@@ -1,7 +1,7 @@
 export default {
   computed: {
     viewerActiveTool: function() {
-      return this.$store.state.viewerActiveTool
+      return this.$store.getters.viewerActiveTool
     },
   },
 

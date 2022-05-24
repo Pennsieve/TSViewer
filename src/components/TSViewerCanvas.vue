@@ -113,13 +113,13 @@
         },
         computed: {
             viewerChannels: function() {
-              return this.$store.state.viewerChannels
+              return this.$store.getters.viewerChannels
             },
             viewerAnnotations: function() {
-              return this.$store.state.viewerAnnotations
+              return this.$store.getters.viewerAnnotations
             },
             viewerActiveTool: function() {
-              return this.$store.state.viewerActiveTool
+              return this.$store.getters.viewerActiveTool
             },
             pHeight: function() {
                 return this.cHeight -20;
