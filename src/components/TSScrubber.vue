@@ -60,9 +60,6 @@
             viewerAnnotations: function() {
               return this.$store.getters.viewerAnnotations
             },
-            userToken: function() {
-              return this.$store.getters.userToken
-            },
             ts_start_str: function() {
                 return this.getUTCTimeString(this.ts_start)
             },
@@ -226,7 +223,7 @@
             getAnnotations: function() {
                 const layerIds = map(obj => obj.id, this.viewerAnnotations);
                 const baseUrl = `${this.config.apiUrl}/timeseries/${this.activeViewer.content.id}/annotations/window`;
-                var url = baseUrl + `?api_key=${this.userToken}&aggregation=count&start=${this.ts_start}&end=${this.ts_end}&period=${this.period}&mergePeriods=true`
+                var url = baseUrl + `?api_key=${this.$store.state.userToken}&aggregation=count&start=${this.ts_start}&end=${this.ts_end}&period=${this.period}&mergePeriods=true`
                 for (let i in layerIds) {
                     url = url + `&layerIds=${layerIds[i]}`
                 }

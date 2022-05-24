@@ -21,9 +21,6 @@ export default {
     activeAnnotation: function() {
       return this.$store.getters.activeAnnotation
     },
-    userToken: function() {
-      return this.$store.getters.userToken
-    },
   },
 
   methods: {
@@ -75,7 +72,7 @@ export default {
       this.sendXhr(url, {
         method:'POST',
         header: {
-          'Authorization': `Bearer ${this.userToken}`
+          'Authorization': `Bearer ${this.$store.state.userToken}`
         },
         body:XhrBody
       } ).then((response) => {
@@ -160,7 +157,7 @@ export default {
       self.sendXhr(url, {
         method:'PUT',
         header: {
-          'Authorization': `Bearer ${this.userToken}`
+          'Authorization': `Bearer ${this.$store.state.userToken}`
         },
         body:XhrBody
       } ).then(() => {
@@ -185,7 +182,7 @@ export default {
       self.sendXhr(url, {
         method:'DELETE',
         header: {
-          'Authorization': `Bearer ${this.userToken}`
+          'Authorization': `Bearer ${this.$store.state.userToken}`
         },
       } ).then(() => {
         self.$store.dispatch('deleteAnnotation', annotation)

@@ -66,9 +66,6 @@
             viewerMontageScheme: function() {
               return this.$store.getters.viewerMontageScheme
             },
-            userToken: function() {
-              return this.$store.getters.userToken
-            },
             canvasStyle: function() {
                 return {
                     width: this.cWidth  + 'px',
@@ -79,7 +76,7 @@
                 return this.cHeight - 20
             },
             timeSeriesUrl: function() {
-                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + this.userToken + '&package=' + encodeURIComponent(this.packageId)
+                return `wss://${process.env.VUE_APP_PENNSIEVE_API_LOCATION}/streaming/discover/ts/query?session=` + this.$store.state.userToken + '&package=' + encodeURIComponent(this.packageId)
             },
             packageId: function() {
               return propOr('', 'packageId', this.activeViewer)
@@ -868,7 +865,7 @@
                             })
 
                             const req = {
-                                session: this.userToken,
+                                session: this.$store.state.userToken,
                                 minMax: true,
                                 startTime: curRequest.start,
                                 endTime: requestEndTime,

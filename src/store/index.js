@@ -38,7 +38,6 @@ const store = {
     viewerChannels: state => state.viewerChannels,
     viewerMontageScheme: state => state.viewerMontageScheme,
     activeViewer: state => state.activeViewer,
-    userToken: state => state.userToken,
     viewerActiveTool: state => state.viewerActiveTool,
     activeAnnotation: state => state.activeAnnotation,
     viewerSidePanelOpen: state => state.viewerSidePanelOpen,
