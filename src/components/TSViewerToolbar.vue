@@ -350,7 +350,7 @@
       }
     }
     .playSelect {
-      width: 70px;
+      width: 75px;
       margin-right: 8px;
     }
 </style>
