@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <TSViewer
-      :userToken="userToken" 
-      :packageId="packageId"
-      :packageType="packageType"
-    />
+    <div> Test app</div>
   </div>
 </template>
 
 <script>
-import TSViewer from "./components/TSViewer.vue"
 
 export default {
   name: 'App',
-  components: {
-    TSViewer
-  },
   data() {
     return {
       // test data for a timeseries file in dataset 214 on pennsieve.io: PackageId = N:package:0930a78f-518c-4028-b33e-092fe5df87ad

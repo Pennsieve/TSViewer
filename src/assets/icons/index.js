@@ -1,7 +1,0 @@
-require('./blackfynn-timescale')
-require('./blackfynn-amplitude-zoom')
-require('./icon-next-page')
-require('./icon-previous-page')
-require('./icon-controller-pause')
-require('./icon-controller-play')
-require('./icon-stopwatch')
