@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div>Test app</div>
+    <div class="timeseries-viewer-wrapper">
+      <TSViewer></TSViewer>
+    </div>
   </div>
 </template>
 

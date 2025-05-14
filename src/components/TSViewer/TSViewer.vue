@@ -169,11 +169,29 @@
                 },
                 immediate: true
             },
+            userToken: {
+            handler: async function(token) {
+              await this.$store.dispatch('updateUserToken', token)
+            },
+            immediate: true
+          },
         },
         props: {
           isPreview: {
             type: Boolean,
             default: false
+          },
+          userToken: {
+            type: String,
+            default: () => ''
+          },
+          packageId: {
+            type: String,
+            default: () => ''
+          },
+          packageType: {
+            type: String,
+            default: () => ''
           }
         },
 
