@@ -148,13 +148,13 @@
         name: 'TimeseriesViewer',
 
         components:{
-            'timeseries-scrubber': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSScrubber.vue')),
-            'timeseries-viewer-canvas': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSViewerCanvas.vue')),
-            'timeseries-viewer-toolbar': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSViewerToolbar.vue')),
-            'timeseries-filter-modal': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSFilterModal.vue')),
-            'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSViewerLayerWindow.vue')),
-            'ts-annotation-delete-dialog': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSAnnotationDeleteDialog/TsAnnotationDeleteDialog.vue')),
-            'timeseries-annotation-modal': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSAnnotationModal.vue'))
+            'timeseries-scrubber': defineAsyncComponent(() => import('@/components/TSViewer/TSScrubber.vue')),
+            'timeseries-viewer-canvas': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerCanvas.vue')),
+            'timeseries-viewer-toolbar': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerToolbar.vue')),
+            'timeseries-filter-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSFilterModal.vue')),
+            'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerLayerWindow.vue')),
+            'ts-annotation-delete-dialog': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationDeleteDialog/TsAnnotationDeleteDialog.vue')),
+            'timeseries-annotation-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationModal.vue'))
         },
 
         mixins: [

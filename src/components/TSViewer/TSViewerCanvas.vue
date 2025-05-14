@@ -106,8 +106,8 @@
         name: 'TimeseriesViewerCanvas',
 
         components:{
-            'timeseries-plot-canvas':defineAsyncComponent( () => import('@/components/viewers/TSViewer/TSPlotCanvas.vue')),
-            'timeseries-annotation-canvas': defineAsyncComponent(() => import('@/components/viewers/TSViewer/TSAnnotationCanvas.vue'))
+            'timeseries-plot-canvas':defineAsyncComponent( () => import('@/components/TSViewer/TSPlotCanvas.vue')),
+            'timeseries-annotation-canvas': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationCanvas.vue'))
         },
 
         mixins: [
