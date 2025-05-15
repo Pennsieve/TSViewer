@@ -2,13 +2,18 @@
   <div id="app">
     <div>Test app</div>
     <div class="timeseries-viewer-wrapper">
-      <TSViewer></TSViewer>
+      <TSViewer
+      :userToken="userToken" 
+      :packageId="packageId"
+      :packageType="packageType"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import TSViewer from './components/TSViewer/TSViewer.vue'
 // test data for a timeseries file in dataset 214 on pennsieve.io: PackageId = N:package:0930a78f-518c-4028-b33e-092fe5df87ad
 // test data for a timeseries file in dataset 4982 on pennsieve.net: PackageId = N:package:311c0f93-f1cf-4527-922d-80b61de81d5e
 const packageId = ref('N:package:311c0f93-f1cf-4527-922d-80b61de81d5e')

@@ -78,9 +78,9 @@
         propOr
     } from 'ramda'
 
-    import EventBus from '../../../utils/event-bus'
-    import CircleIcon from "../../shared/CircleIcon/CircleIcon.vue";
-    import BfButton from "../../shared/bf-button/BfButton.vue";
+    import EventBus from '@/utils/event-bus'
+    import CircleIcon from "../shared/CircleIcon/CircleIcon.vue";
+    import BfButton from "../shared/bf-button/BfButton.vue";
 
     export default {
         name: 'AnnotationLayerWindow',
@@ -254,7 +254,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '../../../assets/_variables.scss';
+    @import '@/assets/_variables.scss';
 
     .timeseries-annotation-modal {
         display: block;

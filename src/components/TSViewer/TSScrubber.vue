@@ -529,7 +529,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '../../../assets/_variables.scss';
+    @import '@/assets/_variables.scss';
 
     .timeseries-scrubber {
         background: $white;

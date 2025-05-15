@@ -147,12 +147,12 @@
 </template>
 
 <script>
-    import IconTimescale from "../../icons/IconTimeschale.vue";
-    import IconPreviousPage from "../../icons/IconPreviousPage.vue";
-    import IconNextAnnotationLeftFacing from "../../icons/IconNextAnnotationLeftFacing.vue";
+    import IconTimescale from "../icons/IconTimeschale.vue";
+    import IconPreviousPage from "../icons/IconPreviousPage.vue";
+    import IconNextAnnotationLeftFacing from "../icons/IconNextAnnotationLeftFacing.vue";
     import IconNextAnnotationRightFacing from "@/components/icons/IconNextAnnotationRightFacing.vue";
-    import IconNextPage from "../../icons/IconNextPage.vue";
-    import IconStopwatch from "../../icons/IconStopwatch.vue";
+    import IconNextPage from "../icons/IconNextPage.vue";
+    import IconStopwatch from "../icons/IconStopwatch.vue";
     import IconControllerPlay from "@/components/icons/IconControllerPlay.vue";
     import IconControllerPause from "@/components/icons/IconControllerPause.vue";
     export default {
@@ -298,7 +298,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../../assets/_variables.scss';
+  @import '@/assets/_variables.scss';
 
   .timeseries-viewer-toolbar {
       border-top: 1px solid #DADADA;

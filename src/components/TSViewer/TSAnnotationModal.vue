@@ -110,7 +110,7 @@ import {
 } from 'ramda'
 
 import {mapState} from "vuex";
-import IconSelection from "../../icons/IconSelection.vue";
+import IconSelection from "../icons/IconSelection.vue";
 import { defineAsyncComponent } from 'vue'
 
 export default {
@@ -309,7 +309,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/_variables.scss';
+@import '@/assets/_variables.scss';
 
 .timeseries-annotation-modal {
   display: block;

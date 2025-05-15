@@ -3,7 +3,6 @@
 import {compose, defaultTo, prop, propOr, tryCatch} from "ramda";
 import EventBus from "@/utils/event-bus";
 import {useHandleLogout} from "@/mixins/logout-handler/logout_handler_composable";
-import {useRouter} from "vue-router";
 
 const _isString = (x) => Object.prototype.toString.call(x) === '[object String]'
 
@@ -79,8 +78,6 @@ export function useHandleXhrError(err) {
         status = err.status
     }
 
-    const router = useRouter()
-
     if (status === 400 && err.body) {
         err.body.getReader().read().then(({ done, value }) => {
             const strData = value instanceof Uint8Array ? String.fromCharCode.apply(null, value) : value
@@ -96,11 +93,6 @@ export function useHandleXhrError(err) {
     else if (status === 401) {
         // debugger
         return useHandleLogout()
-    } // unauthorized
-    else if (status === 403) {
-        if (router) {
-            return router.replace({name: 'datasets-list'})
-        }
     }
     else {
         // emit ajaxError

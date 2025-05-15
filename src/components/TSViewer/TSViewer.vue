@@ -173,14 +173,19 @@
             handler: async function(token) {
               await this.$store.dispatch('updateUserToken', token)
             },
-            immediate: true
-          },
+              immediate: true
+            },
+            packageId: {
+              handler: async function(id) {
+                await this.$store.dispatch('openViewer', {
+                  packageId: id,
+                  packageType: this.packageType
+                })
+              },
+              immediate: true
+            }
         },
         props: {
-          isPreview: {
-            type: Boolean,
-            default: false
-          },
           userToken: {
             type: String,
             default: () => ''
@@ -593,7 +598,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '../../../assets/_variables.scss';
+    @import '@/assets/_variables.scss';
 
     .timeseries-viewer {
         display: flex;

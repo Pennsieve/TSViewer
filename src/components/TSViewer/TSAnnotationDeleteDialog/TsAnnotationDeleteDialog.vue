@@ -160,7 +160,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../assets/_variables.scss';
+@import '@/assets/_variables.scss';
 
 .mb-16 {
   color: $red_1

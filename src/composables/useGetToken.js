@@ -1,16 +1,8 @@
-import { fetchAuthSession } from 'aws-amplify/auth';
-import * as siteConfig from '@/site-config/site.json'
+
 
 
 export async function useGetToken() {
-    try {
-        const session = await fetchAuthSession();
-        return session?.tokens?.accessToken.toString();
-    } catch (error) {
-        console.log(error)
-        // If we don't have a token, redirect to discover app
-        window.location.replace(siteConfig.discoverAppUrl)
-    }
+        return 'eyJraWQiOiJ1UUMzRDl1RGpTTlhoNzZJRW1ldExcL05uOGRMazFyaU1LWSt5T2ZTUytHaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlMjYwMDE2ZS04MmU0LTRlNmItYTAyYS0wMTcxNzgwZmE5YjQiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCIsImF1dGhfdGltZSI6MTY1MzQwODQxMCwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfRlZMaEo3Q1FBIiwiZXhwIjoxNjUzNDEyMDEwLCJpYXQiOjE2NTM0MDg0MTEsInZlcnNpb24iOjIsImp0aSI6ImMwNDVlODllLTg3NjktNGQxMi05OWUzLWVkZDUwMmNhNzllNSIsImNsaWVudF9pZCI6IjcwM2xtNWQ4b2RjY3UyMXBhZ2NmamtlYWVhIiwidXNlcm5hbWUiOiJlMjYwMDE2ZS04MmU0LTRlNmItYTAyYS0wMTcxNzgwZmE5YjQifQ.sfhRcP0U0qU52o-WJv7D0QnKdfiFLl9S8QnXTmNgs5zOLYaqwnY6Ml4u_NT6F6959zvTlS0us-KKG5j94hGKhiB8bLnm3WnTCpKgMzcJFseqNmhqSSz0w35s302ayAAskxKx9jQYvNM0vF5T3zX2_ftmi9gx6CNOckiFpiMh3tMhVyEJJXVcjBULApCgLFXru3Y4VLYGqnI8iXHH4hhQyg1L-oo-S2FalgYJFDoQbDmjyv6TBcDSeZnTNVe9DYGWLzyade_HlFhfFVzF8ATD8DSTbJ29WoyUiH7CVGYR65faZnD1FnKUWTUDpySFLsFvWSoCyyt91LZ_8LXYgi3YXg'
 }
 
 
