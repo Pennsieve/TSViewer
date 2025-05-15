@@ -859,7 +859,7 @@
                             })
 
                             const req = {
-                                session: this.$store.state.userToken,
+                                session: '',
                                 minMax: true,
                                 startTime: curRequest.start,
                                 endTime: requestEndTime,
@@ -1430,7 +1430,8 @@
 
               useGetToken()
                 .then(token => {
-                  const url =  this.$store.state.config.timeSeriesUrl + '?session=' + token + '&package=' + this.activeViewer.content.id
+
+                  const url =  'wss://api.pennsieve.net/streaming/ts/query?session=' + token + '&package=' + this.activeViewer.content.id
                   this._websocket = new WebSocket(url);
                   this._websocket.onopen = this._onWebsocketOpen.bind(this);
                   this._websocket.onclose = this._onWebsocketClose.bind(this);

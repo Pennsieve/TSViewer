@@ -96,9 +96,6 @@
 
         },
         computed: {
-            ...mapState([
-                'config',
-            ]),
              ...mapState('viewerModule', [
                 'activeViewer',
             ]),

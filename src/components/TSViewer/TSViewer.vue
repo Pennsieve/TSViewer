@@ -162,6 +162,15 @@
             ViewerActiveTool,
             TsAnnotation,
         ],
+        computed: {
+          viewerMontageScheme() {
+            return ""
+          }
+        },
+
+        mounted() {
+          console.log('store value', this.viewerMontageScheme)
+        },
         watch: {
             viewerSidePanelOpen: {
                 handler: function() {
@@ -201,9 +210,6 @@
         },
 
         computed: {
-            ...mapState([
-                'config',
-            ]),
             ...mapState('viewerModule', [
                 'activeViewer',
                 'viewerChannels',
@@ -275,7 +281,6 @@
         },
 
         mounted: function () {
-            //
             this.initChannels()
             var style = window.getComputedStyle(document.getElementById("ts_viewer"), null);
             const hhh = parseInt(style.getPropertyValue('height'));
@@ -485,7 +490,7 @@
 
             },
             getChannelId: function(channel) {
-                const isViewingMontage = this.$store.state.viewerMontageScheme !== 'NOT_MONTAGED'
+                const isViewingMontage = true
                 let id = propOr('', 'id', channel)
                 let list = []
                 if (isViewingMontage) {

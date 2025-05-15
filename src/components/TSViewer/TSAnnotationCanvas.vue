@@ -80,9 +80,6 @@ export default {
             }
         },
         computed: {
-            ...mapState([
-                'config',
-            ]),
             ...mapState('viewerModule', [
                 'activeViewer',
                 'viewerChannels',
@@ -103,7 +100,7 @@ export default {
         mounted: function () {
           useGetToken()
             .then(token => {
-              const url = `${this.config.apiUrl}/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
+              const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
               return useSendXhr(url)
                 .then(resp => {
                   this._getLayerResponse(resp)
@@ -371,7 +368,7 @@ export default {
 
                             useGetToken()
                               .then(token => {
-                                const apiUrl = this.config.apiUrl
+                                const apiUrl = 'https://api.pennsieve.net'
                                 const baseUrl = `${apiUrl}/timeseries/${this.activeViewer.content.id}/layers/${curLayer.id}/annotations?api_key=${token}`;
                                 const urlParams = Object.keys(params).map(k => `&${k}=${params[k]}`).join('');
                                 const url = `${baseUrl}${urlParams}`;
@@ -634,7 +631,7 @@ export default {
 
               useGetToken()
                 .then(token => {
-                  const url = `${this.config.apiUrl}/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
+                  const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
                   return useSendXhr(url, {
                     method: "POST",
                     body: {
@@ -915,7 +912,7 @@ export default {
                     // if there's an image preview available
                     if (fileType === 'PNG') {
                       const { id, packageId } = preview
-                      const apiUrl = this.config.apiUrl
+                      const apiUrl = 'https://api.pennsieve.net'
 
                       useGetToken()
                         .then(token => {

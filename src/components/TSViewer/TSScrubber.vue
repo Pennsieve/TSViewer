@@ -73,9 +73,6 @@
         },
 
         computed: {
-            ...mapState([
-                'config',
-            ]),
             ...mapState('viewerModule', [
                 'activeViewer',
                 'viewerChannels',
@@ -262,7 +259,7 @@
 
               useGetToken()
                 .then(token => {
-                  const url = `${this.config.timeSeriesApi}/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`;
+                  const url = `https://api.pennsieve.net/streaming/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`;
                   return this.sendXhr(url)
                     .then(resp => {
                       // Parse response into vector
@@ -335,7 +332,7 @@
                 .then(token => {
                   const layerIds = map(obj => obj.id, this.viewerAnnotations);
                   const endTime = this.ts_end;
-                  const baseUrl = `${this.config.apiUrl}/timeseries/${this.activeViewer.content.id}/annotations/window`;
+                  const baseUrl = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/annotations/window`;
                   let url = baseUrl + `?api_key=${token}&aggregation=count&start=${this.ts_start}&end=${this.ts_end}&period=${this.period}&mergePeriods=true`
                   for (let i in layerIds) {
                     url = url + `&layerIds=${layerIds[i]}`

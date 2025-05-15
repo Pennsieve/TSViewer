@@ -1,6 +1,7 @@
 import { propOr, propEq, findIndex, mergeWith } from 'ramda'
 import { viewerSidePanelTypes, viewerToolTypes } from '@/utils/constants'
 
+
 const store = {
   state: {
     userToken: '',
