@@ -63,31 +63,18 @@
 
 <script>
     import {
-        mapActions,
-        mapGetters,
         mapState
     } from 'vuex'
 
-    import {
-        compose,
-        defaultTo,
-        find,
-        head,
-        pathOr,
-        propEq,
-        propOr
-    } from 'ramda'
-
-    import EventBus from '@/utils/event-bus'
-    import CircleIcon from "../shared/CircleIcon/CircleIcon.vue";
-    import BfButton from "../shared/bf-button/BfButton.vue";
+    import CircleIcon from "../Shared/CircleIcon/CircleIcon.vue";
+    import BFButton from "../Shared/BFButton/BFButton.vue";
 
     export default {
         name: 'AnnotationLayerWindow',
 
         components:{
           CircleIcon,
-          BfButton
+          BFButton
         },
 
         mixins: [

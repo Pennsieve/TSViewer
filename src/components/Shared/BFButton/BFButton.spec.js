@@ -1,9 +1,9 @@
-import BfButton from './BfButton.vue'
+import BFButton from './BFButton.vue'
 import { shallowMount } from '@vue/test-utils'
 
-describe('BfButton.vue', () => {
+describe('BFButton.vue', () => {
 
-  const cmp = shallowMount(BfButton, {
+  const cmp = shallowMount(BFButton, {
     slots: {
       default: '<div />'
     }

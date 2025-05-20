@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "BfButton",
+  name: "BFButton",
 
   props: {
     type: {
