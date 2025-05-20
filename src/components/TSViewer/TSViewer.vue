@@ -128,7 +128,8 @@
 
 <script>
     import {
-        mapState
+        mapState,
+        mapActions
     } from 'vuex'
 
     import {
@@ -180,13 +181,13 @@
             },
             userToken: {
             handler: async function(token) {
-              await this.$store.dispatch('updateUserToken', token)
+              await this.$store.dispatch('viewerModule/updateUserToken', token)
             },
               immediate: true
             },
             packageId: {
               handler: async function(id) {
-                await this.$store.dispatch('openViewer', {
+                await this.$store.dispatch('viewerModule/setActiveViewer', {
                   packageId: id,
                   packageType: this.packageType
                 })
@@ -195,6 +196,10 @@
             }
         },
         props: {
+          isPreview: {
+            type: Boolean,
+            default: false
+          },
           userToken: {
             type: String,
             default: () => ''
@@ -529,7 +534,7 @@
             },
             initChannels: function() {
                 const channels = this.activeViewer.channels
-                if (channels.length > 0) {
+                if (channels?.length > 0) {
                     // Find Global start and end
                     this.ts_start = channels[0].content.start
                     this.ts_end = channels[0].content.end
