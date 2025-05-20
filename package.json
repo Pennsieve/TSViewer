@@ -17,7 +17,9 @@
     "*.js"
   ],
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "core-js": "^3.8.3",
+    "element-plus": "^2.3.9",
     "protobufjs": "^6.11.2",
     "ramda": "^0.28.0",
     "sass": "^1.88.0",
