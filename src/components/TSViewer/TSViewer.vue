@@ -179,38 +179,11 @@
                 },
                 immediate: true
             },
-            userToken: {
-            handler: async function(token) {
-              await this.$store.dispatch('viewerModule/updateUserToken', token)
-            },
-              immediate: true
-            },
-            packageId: {
-              handler: async function(id) {
-                await this.$store.dispatch('viewerModule/setActiveViewer', {
-                  packageId: id,
-                  packageType: this.packageType
-                })
-              },
-              immediate: true
-            }
         },
         props: {
           isPreview: {
             type: Boolean,
             default: false
-          },
-          userToken: {
-            type: String,
-            default: () => ''
-          },
-          packageId: {
-            type: String,
-            default: () => ''
-          },
-          packageType: {
-            type: String,
-            default: () => ''
           }
         },
 

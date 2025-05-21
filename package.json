@@ -35,6 +35,8 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "sass-loader": "^12",
+    "unplugin-auto-import": "^19.2.0",
+    "unplugin-vue-components": "^28.5.0",
     "vue": "^3.2.45",
     "vuex": "^4.1.0"
   },
