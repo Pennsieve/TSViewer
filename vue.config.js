@@ -19,6 +19,11 @@ module.exports = {
   },
   css: {
     extract: false,
+    loaderOptions: {
+      scss: {
+        additionalData: `@use "@/assets/element-variables.scss" as *;`,
+      },
+    },
   },
   runtimeCompiler: true,
 }
