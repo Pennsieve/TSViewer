@@ -1,7 +1,6 @@
 // logout-handler_composable.js
 
 import {defaultTo, prop} from "ramda";
-import EventBus from "@/utils/event-bus";
 
 export function useHandleLogout(payload) {
 

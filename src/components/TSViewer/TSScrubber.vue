@@ -48,10 +48,10 @@
         mapState
     } from 'vuex'
 
-    import ViewerActiveTool from '@/mixins/viewer-active-tool'
-    import Request from '@/mixins/request'
-    import {useGetToken} from "@/composables/useGetToken";
-    import {useHandleXhrError, useSendXhr} from "@/mixins/request/request_composable";
+    import ViewerActiveTool from'../../mixins/viewer-active-tool'
+    import Request from'../../mixins/request'
+    import {useGetToken} from "../../composables/useGetToken";
+    import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
 
     export default {
         name: 'TimeseriesScrubber',
@@ -526,7 +526,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .timeseries-scrubber {
         background: $white;

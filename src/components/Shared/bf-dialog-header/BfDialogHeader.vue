@@ -41,7 +41,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '@/assets/_variables.scss';
+  @import '../../../assets/_variables.scss';
 
   .bf-dialog-header {
     align-items: center;

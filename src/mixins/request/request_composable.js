@@ -1,8 +1,8 @@
 // request_composable.js
 
 import {compose, defaultTo, prop, propOr, tryCatch} from "ramda";
-import EventBus from "@/utils/event-bus";
-import {useHandleLogout} from "@/mixins/logout-handler/logout_handler_composable";
+import EventBus from "../../utils/event-bus";
+import {useHandleLogout} from "../logout-handler/logout_handler_composable";
 
 const _isString = (x) => Object.prototype.toString.call(x) === '[object String]'
 

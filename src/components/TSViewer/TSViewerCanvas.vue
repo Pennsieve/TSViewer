@@ -97,8 +97,8 @@
         propEq,
     } from 'ramda'
 
-    import ViewerActiveTool from '@/mixins/viewer-active-tool'
-    import Request from '@/mixins/request'
+    import ViewerActiveTool from'../../mixins/viewer-active-tool'
+    import Request from'../../mixins/request'
     import { defineAsyncComponent } from 'vue'
 
 
@@ -106,8 +106,8 @@
         name: 'TimeseriesViewerCanvas',
 
         components:{
-            'timeseries-plot-canvas':defineAsyncComponent( () => import('@/components/TSViewer/TSPlotCanvas.vue')),
-            'timeseries-annotation-canvas': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationCanvas.vue'))
+            'timeseries-plot-canvas':defineAsyncComponent( () => import('../TSViewer/TSPlotCanvas.vue') ),
+            'timeseries-annotation-canvas': defineAsyncComponent(() => import('../TSViewer/TSAnnotationCanvas.vue'))
         },
 
         mixins: [
@@ -857,7 +857,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .timeseries-viewer-canvas {
         display: flex;

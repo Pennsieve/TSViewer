@@ -1,11 +1,11 @@
 // src/store/index.js
 import { createStore } from 'vuex'
 import {
-  mergeRight, mergeWith, propOr, propEq, findIndex, flatten, compose,
+  propOr, propEq, findIndex, flatten, compose,
   pluck, pathOr, includes, remove, find
 } from 'ramda'
-import { viewerSidePanelTypes, viewerToolTypes } from '@/utils/constants'
-import {useSendXhr} from "@/mixins/request/request_composable";
+import { viewerSidePanelTypes, viewerToolTypes } from'../utils/constants'
+import {useSendXhr} from "../mixins/request/request_composable"
 
 
 const getLayerIndex = (key, data, viewerAnnotations) => {

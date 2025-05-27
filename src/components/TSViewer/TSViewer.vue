@@ -1,5 +1,6 @@
 <template>
-  <div
+  <div class="wrapper">
+    <div v-if="isReady"
     id="ts_viewer"
     ref="ts_viewer"
     :class="[ isPreview ? 'timeseries-viewer preview' : 'timeseries-viewer' ]"
@@ -124,6 +125,10 @@
 
 
   </div>
+    <div v-else>
+      <p>Loading...</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -140,22 +145,22 @@
     } from 'ramda'
 
     import { nextTick } from 'vue';
-    import ViewerActiveTool from '@/mixins/viewer-active-tool'
-    import Request from '@/mixins/request'
-    import TsAnnotation from '@/mixins/ts-annotation'
+    import ViewerActiveTool from'../../mixins/viewer-active-tool'
+    import Request from'../../mixins/request'
+    import TsAnnotation from'../../mixins/ts-annotation'
     import { defineAsyncComponent } from 'vue'
 
     export default {
         name: 'TimeseriesViewer',
 
         components:{
-            'timeseries-scrubber': defineAsyncComponent(() => import('@/components/TSViewer/TSScrubber.vue')),
-            'timeseries-viewer-canvas': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerCanvas.vue')),
-            'timeseries-viewer-toolbar': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerToolbar.vue')),
-            'timeseries-filter-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSFilterModal.vue')),
-            'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSViewerLayerWindow.vue')),
-            'ts-annotation-delete-dialog': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationDeleteDialog/TsAnnotationDeleteDialog.vue')),
-            'timeseries-annotation-modal': defineAsyncComponent(() => import('@/components/TSViewer/TSAnnotationModal.vue'))
+            'timeseries-scrubber': defineAsyncComponent(() => import('../TSViewer/TSScrubber.vue')),
+            'timeseries-viewer-canvas': defineAsyncComponent(() => import('../TSViewer/TSViewerCanvas.vue')),
+            'timeseries-viewer-toolbar': defineAsyncComponent(() => import('../TSViewer/TSViewerToolbar.vue')),
+            'timeseries-filter-modal': defineAsyncComponent(() => import('../TSViewer/TSFilterModal.vue')),
+            'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('../TSViewer/TSViewerLayerWindow.vue')),
+            'ts-annotation-delete-dialog': defineAsyncComponent(() => import('../TSViewer/TSAnnotationDeleteDialog/TsAnnotationDeleteDialog.vue')),
+            'timeseries-annotation-modal': defineAsyncComponent(() => import('../TSViewer/TSAnnotationModal.vue'))
         },
 
         mixins: [
@@ -168,9 +173,9 @@
             return ""
           }
         },
-
-        mounted() {
-          console.log('store value', this.viewerMontageScheme)
+        async mounted() {
+          await this.fetchInitialData()
+          this.isReady = true
         },
         watch: {
             viewerSidePanelOpen: {
@@ -255,6 +260,10 @@
                 annotationLayerWindowOpen: false,
                 annotationDelete: null,
                 isTsAnnotationDeleteDialogVisible: false,
+                packageId: 'N:package:e115e3a8-fba8-4e16-92d0-1394d192d509',
+                userToken: 'eyJraWQiOiJ1UUMzRDl1RGpTTlhoNzZJRW1ldExcL05uOGRMazFyaU1LWSt5T2ZTUytHaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJmNmYxZTFlMy0zYjIyLTQ3ODEtOTgyZC0yMjUyYWJmNzBkZWEiLCJkZXZpY2Vfa2V5IjoidXMtZWFzdC0xXzFkZDBjYzA1LTRmMDktNDg2NC05ZmExLTEwNTAzZTE4NTllOCIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0ZWTGhKN0NRQSIsImNsaWVudF9pZCI6IjcwM2xtNWQ4b2RjY3UyMXBhZ2NmamtlYWVhIiwib3JpZ2luX2p0aSI6IjYxOWQ1Yjk4LWVkZjgtNGFiNC04MWI2LTE0ZDMwM2ZlOGM1YyIsImV2ZW50X2lkIjoiOWU4MmM2ZTAtNDFjZi00MTljLWE1YjgtMWY3NDQ1NGRkNzEzIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTc0ODM2MDg2OCwiZXhwIjoxNzQ4Mzc1NzIwLCJpYXQiOjE3NDgzNzIxMjAsImp0aSI6IjA2MmZjNDAyLThjYmQtNGQ3MC05ZWIyLWM5MDcwMjk4NTQ3ZiIsInVzZXJuYW1lIjoiZjZmMWUxZTMtM2IyMi00NzgxLTk4MmQtMjI1MmFiZjcwZGVhIn0.qPuFrXNIF97WsUtCzttBhk9hIX4AfaFtkn4sHlC3e6zk8NaNblY0ziASB5qI8msgJETvAxX5SAZts3c05szcDi4ScNuOZxZS442l1m3PTabF7sVZHKYkURIamf0gxrNCtpHPzv8JzuPWbMiSd6G8nzAuypbdxpGNnj1FW6bn79lODcGJJHIiGVM79UP68rbrTW6TBOx5ewtgPVcxw5YXim9WdVaQyG2qM2ZwHgibz8Q_sJNOEeJ2zq2vp3DSpAvRNkFAgR79FkZ6NdqeBHN4Dx6laA2_iM-oVrm9OrIJmH4XLrBd78N3Wm1VAzbu6DLK3tpTH4ka38cDidnd0hJLHg',
+                packageType: 'TimeSeries',
+                isReady: false,
             }
         },
 
@@ -572,8 +581,14 @@
             },
             setTimeseriesFilters: function(payload) {
                 this.$refs.viewerCanvas.setFilters(payload)
+            },
+            fetchInitialData: function() {
+              this.$store.dispatch('viewerModule/updateUserToken', userToken.value)
+              return this.$store.dispatch('viewerModule/setActiveViewer', {
+              packageId: packageId.value,
+              packageType: packageType.value
+              })
             }
-
         }
 
     }
@@ -581,7 +596,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .timeseries-viewer {
         display: flex;

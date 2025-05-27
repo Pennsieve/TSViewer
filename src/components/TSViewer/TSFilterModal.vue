@@ -67,14 +67,14 @@ import {
   mapState
 } from 'vuex'
 
-import EventBus from '@/utils/event-bus'
+import EventBus from'../../utils/event-bus'
 import IconSelection from "../icons/IconSelection.vue"
 
 export default {
   name: 'TimeseriesFilterModal',
 
   components: {
-    'bf-button': () => import('@/components/Shared/BfButton/BfButton.vue'),
+    'bf-button': () => import('../Shared/BfButton/BfButton.vue'),
     IconSelection
   },
 
@@ -224,7 +224,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/_variables.scss';
+@import'../../assets/_variables.scss';
 
 .timeseries-filter-modal {
   display: block;

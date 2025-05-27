@@ -118,7 +118,7 @@ export default {
 
   components: {
     IconSelection,
-    'bf-button': defineAsyncComponent(() => import('@/components/Shared/BfButton/BfButton.vue'))
+    'bf-button': defineAsyncComponent(() => import('../Shared/BfButton/BfButton.vue'))
   },
 
   props: {
@@ -309,7 +309,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/_variables.scss';
+@import'../../assets/_variables.scss';
 
 .timeseries-annotation-modal {
   display: block;

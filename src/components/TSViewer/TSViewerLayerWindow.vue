@@ -238,7 +238,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .timeseries-annotation-modal {
         display: block;

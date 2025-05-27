@@ -35,7 +35,7 @@
     } from 'ramda'
 
     import protobuf from 'protobufjs'
-    import {useGetToken} from "@/composables/useGetToken";
+    import {useGetToken} from "../../composables/useGetToken";
 
     export default {
         name: 'TimeseriesPlotCanvas',
@@ -1842,7 +1842,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .canvas {
         position: absolute;

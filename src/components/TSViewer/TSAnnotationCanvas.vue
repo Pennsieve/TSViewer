@@ -11,15 +11,15 @@
 
 <script>
 
-import ViewerActiveTool from '@/mixins/viewer-active-tool'
-import Request from '@/mixins/request'
-import EventBus from '@/utils/event-bus'
+import ViewerActiveTool from'../../mixins/viewer-active-tool'
+import Request from'../../mixins/request'
+import EventBus from'../../utils/event-bus'
 
 import {mapState} from 'vuex'
 
 import {defaultTo, find, head, pathOr, prop, propEq, propOr} from 'ramda'
-import {useGetToken} from "@/composables/useGetToken";
-import {useHandleXhrError, useSendXhr} from "@/mixins/request/request_composable";
+import {useGetToken} from "../../composables/useGetToken";
+import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
 
 export default {
         name: 'TimeseriesAnnotationCanvas',
@@ -1090,7 +1090,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/_variables.scss';
+    @import'../../assets/_variables.scss';
 
     .timeseries-annotation-canvas {
         position: absolute;

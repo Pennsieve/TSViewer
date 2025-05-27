@@ -1,6 +1,6 @@
 import {mapState, mapActions} from "vuex";
-import Request from '@/mixins/request'
-import {useGetToken} from "@/composables/useGetToken";
+import Request from'../request'
+import {useGetToken} from "../../composables/useGetToken";
 
 export default {
   mixins: [
