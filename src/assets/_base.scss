@@ -1,0 +1,95 @@
+@import './_variables.scss';
+
+h1 {
+  color: $gray_6;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 40px;
+  margin: 0 0 32px;
+}
+h2 {
+  color: $gray_6;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0 0 16px
+}
+
+a {
+  color: $app-primary-color;
+  text-decoration: none;
+  &:hover, &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+  &.disabled {
+    cursor: default;
+    opacity: .6;
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}
+a, button {
+  font-family: 'Roboto', sans-serif;
+  &.grey-link {
+    color: $gray_4;
+    &a {
+      text-decoration: underline;
+    }
+    &:hover, &:focus {
+      color: $app-primary-color;
+    }
+  }
+}
+hr {
+  border: none;
+  border-top: 1px solid $gray_2;
+  margin: 24px 0;
+}
+p {
+  margin: 0 0 8px;
+}
+strong {
+  font-weight: 500;
+}
+.align-right {
+  text-align: right
+}
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: inherit;
+  outline: none;
+  &[disabled] {
+    cursor: default;
+    opacity: .6;
+  }
+  &.linked {
+    color: $app-primary-color;
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+.button-icon {
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-flex;
+  cursor: pointer;
+  height: 36px;
+  justify-content: center;
+  padding: 8px;
+  width: 36px;
+  &:hover, &:focus {
+    background: $gray_2;
+    color: $app-primary-color;
+  }
+  &.small {
+    height: 32px;
+    padding: 2px;
+    width: 32px;
+  }
+}

@@ -74,7 +74,7 @@ export default {
   name: 'TimeseriesFilterModal',
 
   components: {
-    'bf-button': () => import('@/components/Shared/BFButton/BFButton.vue'),
+    'bf-button': () => import('@/components/Shared/BfButton/BfButton.vue'),
     IconSelection
   },
 

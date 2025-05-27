@@ -118,7 +118,7 @@ export default {
 
   components: {
     IconSelection,
-    'bf-button': defineAsyncComponent(() => import('@/components/Shared/BFButton/BFButton.vue'))
+    'bf-button': defineAsyncComponent(() => import('@/components/Shared/BfButton/BfButton.vue'))
   },
 
   props: {

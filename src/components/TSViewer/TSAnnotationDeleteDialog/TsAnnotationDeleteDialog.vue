@@ -55,7 +55,7 @@ import {
 
 import BfDialogHeader from '@/components/Shared/bf-dialog-header/BfDialogHeader.vue'
 import DialogBody from '@/components/Shared/dialog-body/DialogBody.vue'
-import BFButton from '@/components/Shared/BFButton/BFButton.vue'
+import BfButton from '@/components/Shared/BfButton/BfButton.vue'
 import IconWarningCircle from '@/components/icons/IconWarningCircle.vue'
 
 export default {
@@ -64,7 +64,7 @@ export default {
   components: {
     BfDialogHeader,
     DialogBody,
-    BFButton,
+    BfButton,
     IconWarningCircle
   },
 

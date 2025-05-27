@@ -67,14 +67,14 @@
     } from 'vuex'
 
     import CircleIcon from "../Shared/CircleIcon/CircleIcon.vue";
-    import BFButton from "../Shared/BFButton/BFButton.vue";
+    import BfButton from "../Shared/BfButton/BfButton.vue";
 
     export default {
         name: 'AnnotationLayerWindow',
 
         components:{
           CircleIcon,
-          BFButton
+          BfButton
         },
 
         mixins: [

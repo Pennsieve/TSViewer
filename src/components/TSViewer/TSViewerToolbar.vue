@@ -105,7 +105,7 @@
       <el-tooltip
         placement="top-end"
         content="Montaging Controls">
-        <el-select v-model="selectedMontage" placeholder="Select" size="small" @change="updateMontageScheme">
+        <el-select v-model="selectedMontage" placeholder="Select" size="small" @change="updateMontageScheme" >
           <el-option
             v-for="item in montageOptions"
             :key="item.value"
@@ -346,6 +346,17 @@
       height: 20px; // since el-input__inner has height of 40px from _el-input.scss
     }
   }
+
+.el-select--small {
+  line-height: 24px;
+}
+
+.el-select {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  line-height: 32px;
+}
 </style>
 
 
