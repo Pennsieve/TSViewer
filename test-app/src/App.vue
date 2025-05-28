@@ -3,12 +3,7 @@
     <div>Test app</div>
     <div class="timeseries-viewer-wrapper">
       <div v-if="isReady">
-        <TSViewer
-        :userToken="userToken" 
-        :packageId="packageId"
-        :packageType="packageType"
-        :is-preview="false"
-        />
+        <TSViewer/>
       </div>
       <div v-else>
         <p>Loading...</p>
@@ -28,7 +23,7 @@ const isReady = ref(false)
 // test data for a timeseries file in dataset 4982 on pennsieve.net: PackageId = N:package:311c0f93-f1cf-4527-922d-80b61de81d5e
 // test data for a timeseries file in dataset N:dataset:1a997f33-4ae7-4b5d-98a2-75620370487d on pennsieve.net: PackageId = N:package:e115e3a8-fba8-4e16-92d0-1394d192d509
 const packageId = ref('N:package:e115e3a8-fba8-4e16-92d0-1394d192d509')
-const userToken = ref('eyJraWQiOiJ1UUMzRDl1RGpTTlhoNzZJRW1ldExcL05uOGRMazFyaU1LWSt5T2ZTUytHaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJmNmYxZTFlMy0zYjIyLTQ3ODEtOTgyZC0yMjUyYWJmNzBkZWEiLCJkZXZpY2Vfa2V5IjoidXMtZWFzdC0xXzFkZDBjYzA1LTRmMDktNDg2NC05ZmExLTEwNTAzZTE4NTllOCIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0ZWTGhKN0NRQSIsImNsaWVudF9pZCI6IjcwM2xtNWQ4b2RjY3UyMXBhZ2NmamtlYWVhIiwib3JpZ2luX2p0aSI6IjYxOWQ1Yjk4LWVkZjgtNGFiNC04MWI2LTE0ZDMwM2ZlOGM1YyIsImV2ZW50X2lkIjoiOWU4MmM2ZTAtNDFjZi00MTljLWE1YjgtMWY3NDQ1NGRkNzEzIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTc0ODM2MDg2OCwiZXhwIjoxNzQ4MzgyOTk4LCJpYXQiOjE3NDgzNzkzOTgsImp0aSI6ImRjYTNjOTI2LTUzZmMtNGNkYi05MWYwLWRhYWEyODViOTQyNyIsInVzZXJuYW1lIjoiZjZmMWUxZTMtM2IyMi00NzgxLTk4MmQtMjI1MmFiZjcwZGVhIn0.CkEyToMHGsqWgqqtZxO-j9aSwjjAoaejpsObHJr9Tkmvxo5GQJ7_YqCazrFQSAhtFAp4TYyi74P3zNA21ivWDlU1LAbeSHzeOdsz4tzai2RMct7j_xXVwgRp4b2nGji0K3oJ0VxxUhehbjMHFvhaoK59OX8SzkAuUQESZAU5J-zqtWYKwbmO9KGNhFc35uknCBEkfY4m6XHJ8yLnjR852xPhH1Bs8zN5WJ9F8Q1mu7TCYQ8v5KxkUOmg8QqjEVY0SiKx1hQDriukfkSGOstQwx9jOYFVElJ0IbQvUo-xnb5X6fiGkHno8A08WNxGzwSk61pSAxFgsGKPgsom1yWRkg') // You can set a test token here for isolated testing
+const userToken = ref('eyJraWQiOiJ1UUMzRDl1RGpTTlhoNzZJRW1ldExcL05uOGRMazFyaU1LWSt5T2ZTUytHaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJmNmYxZTFlMy0zYjIyLTQ3ODEtOTgyZC0yMjUyYWJmNzBkZWEiLCJkZXZpY2Vfa2V5IjoidXMtZWFzdC0xXzI0ZGZkNDQxLWIzN2EtNDgxMy05MWU5LWEzNmYxMGIxMWMzNyIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0ZWTGhKN0NRQSIsImNsaWVudF9pZCI6IjcwM2xtNWQ4b2RjY3UyMXBhZ2NmamtlYWVhIiwib3JpZ2luX2p0aSI6ImIwMGEyNWFmLWIxMzQtNDdmZS05NWNiLTZhOTYyNTc3OTY1NyIsImV2ZW50X2lkIjoiNTA2ZGRmYzEtZWVjNi00MDU4LTk1ZGYtYmE1YzI3OWMwYzBhIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTc0ODQ0ODk5OCwiZXhwIjoxNzQ4NDUyNTk4LCJpYXQiOjE3NDg0NDg5OTgsImp0aSI6IjE1OWY1Njk3LTRmMDEtNDBlZS05Nzk5LTNhYTM0NGMxMDE5OCIsInVzZXJuYW1lIjoiZjZmMWUxZTMtM2IyMi00NzgxLTk4MmQtMjI1MmFiZjcwZGVhIn0.AoJSCVc7tJL1xbfVGNDuVGNDiuPYYj6j2TUTzBZV16qbZEC2DMjjQ_ums5pT8i8PkqOrQOvViJkU1ujcc22bdg4JXIZlwCNmE3C4T2egPJt1WSkJep2EqRf7D0tTZqPCjlIIBGfsBeudRVYBcIXPWhTZ7HmhTW4rmVxYwpuK7TnOQ_LQ-ze3sYkDXUw_9sxpw0Qvcwnhcq8EFn33XYy1CSMJTgwvA2wQxJYYeUP88RnyLsemxntKFb2ufa3Tscg0K9H0odgFLeYOBMmRkwK8AKxBZ017nH403ileQbefVGnhp5F7mc_0-_eLVZKtDEkyjrNeLptlvZwB3t_b2c4bvA') // You can set a test token here for isolated testing
 const packageType = ref('TimeSeries')
 
 

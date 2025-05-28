@@ -106,12 +106,6 @@ export default {
       immediate: true
     },
   },
-  props: {
-    isPreview: {
-      type: Boolean,
-      default: false
-    }
-  },
 
   computed: {
     ...mapState('viewerModule', [
@@ -180,7 +174,8 @@ export default {
       annotationWindowOpen: false,
       annotationLayerWindowOpen: false,
       annotationDelete: null,
-      isTsAnnotationDeleteDialogVisible: false
+      isTsAnnotationDeleteDialogVisible: false,
+      isPreview: false
     }
   },
 
