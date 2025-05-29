@@ -156,7 +156,7 @@
     import IconControllerPlay from "../icons/IconControllerPlay.vue";
     import IconControllerPause from "../icons/IconControllerPause.vue";
     export default {
-        name: 'TimeseriesViewerToolbar',
+        name: 'TSViewerToolbar',
       components: {
         IconNextAnnotationRightFacing,
         IconControllerPlay,

@@ -114,7 +114,7 @@ import IconSelection from "../icons/IconSelection.vue";
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'TsAnnotationModal',
+  name: 'TSAnnotationModal',
 
   components: {
     IconSelection,

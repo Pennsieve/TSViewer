@@ -54,7 +54,7 @@
     import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
 
     export default {
-        name: 'TimeseriesScrubber',
+        name: 'TSScrubber',
 
         mixins: [
             Request,

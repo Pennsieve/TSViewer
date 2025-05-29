@@ -103,7 +103,7 @@
 
 
     export default {
-        name: 'TimeseriesViewerCanvas',
+        name: 'TSViewerCanvas',
 
         components:{
             'timeseries-plot-canvas':defineAsyncComponent( () => import('../TSViewer/TSPlotCanvas.vue') ),

@@ -71,7 +71,7 @@ import EventBus from'../../utils/event-bus'
 import IconSelection from "../icons/IconSelection.vue"
 
 export default {
-  name: 'TimeseriesFilterModal',
+  name: 'TSFilterModal',
 
   components: {
     'bf-button': () => import('../Shared/BfButton/BfButton.vue'),
