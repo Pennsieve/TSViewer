@@ -43,13 +43,6 @@
       @update:visible="annotationWindowOpen = $event" @closeWindow="onCloseAnnotationWindow"
       @createUpdateAnnotation="onCreateUpdateAnnotation" />
 
-    <!--    <timeseries-annotation-layer-modal-->
-    <!--      ref="layerModal"-->
-    <!--      :annotation-layer-window-open="annotationLayerWindowOpen"-->
-    <!--      @closeWindow="onCloseAnnotationLayerWindow"-->
-    <!--      @createLayer="onCreateAnnotationLayer"-->
-    <!--    />-->
-
     <ts-annotation-delete-dialog :visible="isTsAnnotationDeleteDialogVisible" :delete-annotation="annotationDelete"
       @update:visible="isTsAnnotationDeleteDialogVisible = $event" @delete="deleteAnnotation" />
 
@@ -83,7 +76,6 @@ export default {
     'timeseries-viewer-canvas': defineAsyncComponent(() => import('./TSViewerCanvas.vue')),
     'timeseries-viewer-toolbar': defineAsyncComponent(() => import('./TSViewerToolbar.vue')),
     'timeseries-filter-modal': defineAsyncComponent(() => import('./TSFilterModal.vue')),
-    'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('./TSViewerLayerWindow.vue')),
     'ts-annotation-delete-dialog': defineAsyncComponent(() => import('./TSAnnotationDeleteDialog/TSAnnotationDeleteDialog.vue')),
     'timeseries-annotation-modal': defineAsyncComponent(() => import('./TSAnnotationModal.vue')),
   },

@@ -70,7 +70,7 @@
     import BfButton from "../Shared/BfButton/BfButton.vue";
 
     export default {
-        name: 'AnnotationLayerWindow',
+        name: 'TSViewerLayerWindow',
 
         components:{
           CircleIcon,
