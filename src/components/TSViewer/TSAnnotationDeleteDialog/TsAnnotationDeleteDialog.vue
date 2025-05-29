@@ -59,7 +59,7 @@ import BfButton from'../../Shared/BfButton/BfButton.vue'
 import IconWarningCircle from'../../icons/IconWarningCircle.vue'
 
 export default {
-  name: 'TsAnnotationDeleteDialog',
+  name: 'TSAnnotationDeleteDialog',
 
   components: {
     BfDialogHeader,

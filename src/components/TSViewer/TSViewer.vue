@@ -79,13 +79,13 @@ export default {
   name: 'TimeseriesViewer',
 
   components: {
-    'timeseries-scrubber': defineAsyncComponent(() => import('../TSViewer/TSScrubber.vue')),
-    'timeseries-viewer-canvas': defineAsyncComponent(() => import('../TSViewer/TSViewerCanvas.vue')),
-    'timeseries-viewer-toolbar': defineAsyncComponent(() => import('../TSViewer/TSViewerToolbar.vue')),
-    'timeseries-filter-modal': defineAsyncComponent(() => import('../TSViewer/TSFilterModal.vue')),
-    'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('../TSViewer/TSViewerLayerWindow.vue')),
-    'ts-annotation-delete-dialog': defineAsyncComponent(() => import('../TSViewer/TSAnnotationDeleteDialog/TsAnnotationDeleteDialog.vue')),
-    'timeseries-annotation-modal': defineAsyncComponent(() => import('../TSViewer/TSAnnotationModal.vue'))
+    'timeseries-scrubber': defineAsyncComponent(() => import('./TSScrubber.vue')),
+    'timeseries-viewer-canvas': defineAsyncComponent(() => import('./TSViewerCanvas.vue')),
+    'timeseries-viewer-toolbar': defineAsyncComponent(() => import('./TSViewerToolbar.vue')),
+    'timeseries-filter-modal': defineAsyncComponent(() => import('./TSFilterModal.vue')),
+    'timeseries-annotation-layer-modal': defineAsyncComponent(() => import('./TSViewerLayerWindow.vue')),
+    'ts-annotation-delete-dialog': defineAsyncComponent(() => import('./TSAnnotationDeleteDialog/TSAnnotationDeleteDialog.vue')),
+    'timeseries-annotation-modal': defineAsyncComponent(() => import('./TSAnnotationModal.vue')),
   },
 
   mixins: [
@@ -188,12 +188,12 @@ export default {
 
 
     this.window_height = hhh - toolbarOffset;
-    this.window_width = this.$refs.ts_viewer.offsetWidth
+    this.window_width = this.$refs.ts_viewer?.offsetWidth
     window.addEventListener('resize', this.onResize)
 
     const labelDiv = this.$refs.channelLabels
-    this.labelWidth = labelDiv.clientWidth
-    this.cWidth = (this.window_width - labelDiv.clientWidth - 5 - 10)
+    this.labelWidth = labelDiv?.clientWidth
+    this.cWidth = (this.window_width - labelDiv?.clientWidth - 5 - 10)
     this.cHeight = (this.window_height - 88)
     this.duration = this.constants['INITDURATION']
 
@@ -413,11 +413,11 @@ export default {
 
       // this.window_height = window.innerHeight - 100;
       await nextTick();
-      this.window_width = this.$refs.ts_viewer.offsetWidth
+      this.window_width = this.$refs.ts_viewer?.offsetWidth
 
       const labelDiv = this.$refs.channelLabels;
-      this.labelWidth = labelDiv.clientWidth
-      this.cWidth = (this.window_width - labelDiv.clientWidth - 16);
+      this.labelWidth = labelDiv?.clientWidth
+      this.cWidth = (this.window_width - labelDiv?.clientWidth - 16);
       this.cHeight = (this.window_height - 40);
 
       console.log(this.cWidth)
