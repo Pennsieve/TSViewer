@@ -1,35 +1,58 @@
+// vite.config.js
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const AutoImport = require('unplugin-auto-import/webpack');
-const Components = require('unplugin-vue-components/webpack');
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
-module.exports = {
-  outputDir: 'dist',
-  configureWebpack: {
-    devtool: 'source-map',
-    output: {
-      libraryExport: 'default',
-    },
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-        imports: ['vue'],
-        dts: false,        
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-        dts: false,
-      }),
-    ],
-  },
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+      imports: ['vue'],
+      dts: false,
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+      dts: false,
+    }),
+  ],
   css: {
-    extract: false,
-    loaderOptions: {
+    preprocessorOptions: {
       scss: {
         additionalData: `@use "./src/assets/element-variables.scss" as *;`,
       },
     },
   },
-
-  runtimeCompiler: true,
-};
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.js'),
+      name: 'YourLibraryName',
+      fileName: (format) => `your-library-name.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['vue', 'element-plus'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          'element-plus': 'ElementPlus',
+        },
+        exports: 'default',
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+});
