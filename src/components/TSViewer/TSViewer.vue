@@ -1,5 +1,5 @@
 <template>
-  <div id="ts_viewer" ref="ts_viewer" :class="[isPreview ? 'timeseries-viewer preview' : 'timeseries-viewer']">
+  <div ref="ts_viewer" :class="[isPreview ? 'timeseries-viewer preview' : 'timeseries-viewer']">
     <timeseries-scrubber ref="scrubber" :ts_start="ts_start" :ts_end="ts_end" :c-width="cWidth"
       :label-width="labelWidth" :cursor-loc="cursorLoc" :start="start" :duration="duration" :constants="constants"
       @setStart="updateStart" />
@@ -172,23 +172,44 @@ export default {
   },
 
   mounted: async function () {
-    this.initChannels()
-    var style = window.getComputedStyle(document.getElementById("ts_viewer"), null);
-    const hhh = parseInt(style.getPropertyValue('height'));
+    try {
+      this.initChannels();
 
-    const toolbarOffset = this.isPreview ? 0 : 100
+      const tsViewerEl = this.$refs.ts_viewer;
+      if (!tsViewerEl) {
+        console.error("Ref 'ts_viewer' not found.");
+        return;
+      }
 
+      const heightStr = window.getComputedStyle(tsViewerEl).getPropertyValue('height');
+      const containerHeight = parseInt(heightStr);
 
-    this.window_height = hhh - toolbarOffset;
-    this.window_width = this.$refs.ts_viewer?.offsetWidth
-    window.addEventListener('resize', this.onResize)
+      if (isNaN(containerHeight)) {
+        console.error("Could not parse height from ts_viewer element.");
+        return;
+      }
 
-    const labelDiv = this.$refs.channelLabels
-    this.labelWidth = labelDiv?.clientWidth
-    this.cWidth = (this.window_width - labelDiv?.clientWidth - 5 - 10)
-    this.cHeight = (this.window_height - 88)
-    this.duration = this.constants['INITDURATION']
+      const toolbarOffset = this.isPreview ? 0 : 100;
+      this.window_height = containerHeight - toolbarOffset;
+      this.window_width = tsViewerEl.offsetWidth ?? 0;
 
+      window.addEventListener('resize', this.onResize);
+
+      const labelWidth = this.$refs.channelLabels?.clientWidth ?? 0;
+      this.labelWidth = labelWidth;
+
+      this.cWidth = this.window_width - labelWidth - 15;
+      this.cHeight = this.window_height - 88;
+
+      const initDuration = this.constants?.INITDURATION;
+      if (typeof initDuration !== 'number') {
+        console.warn("INITDURATION is not defined or not a number.");
+      }
+
+      this.duration = initDuration ?? 0;
+    } catch (error) {
+      console.error("Error initializing viewer layout:", error);
+    }
   },
 
   beforeUnmount() {
@@ -391,28 +412,34 @@ export default {
       return id
     },
     async onResize(event) {
-      console.log('onresize...')
-      if (this.$refs.ts_viewer === undefined) {
-        return
+      console.log('onresize...');
+
+      const tsViewerEl = this.$refs.ts_viewer;
+      if (!tsViewerEl) {
+        return;
       }
 
-      var style = window.getComputedStyle(document.getElementById("ts_viewer"), null);
-      const hhh = parseInt(style.getPropertyValue('height'));
+      const heightStr = window.getComputedStyle(tsViewerEl).getPropertyValue('height');
+      const containerHeight = parseInt(heightStr);
 
-      const toolbarOffset = this.isPreview ? 0 : 100
+      if (isNaN(containerHeight)) {
+        console.error("Could not parse height from ts_viewer element.");
+        return;
+      }
 
-      this.window_height = hhh - toolbarOffset;
+      const toolbarOffset = this.isPreview ? 0 : 100;
+      this.window_height = containerHeight - toolbarOffset;
 
-      // this.window_height = window.innerHeight - 100;
       await nextTick();
-      this.window_width = this.$refs.ts_viewer?.offsetWidth
+      this.window_width = tsViewerEl.offsetWidth ?? 0;
 
-      const labelDiv = this.$refs.channelLabels;
-      this.labelWidth = labelDiv?.clientWidth
-      this.cWidth = (this.window_width - labelDiv?.clientWidth - 16);
-      this.cHeight = (this.window_height - 40);
+      const labelWidth = this.$refs.channelLabels?.clientWidth ?? 0;
+      this.labelWidth = labelWidth;
 
-      console.log(this.cWidth)
+      this.cWidth = this.window_width - labelWidth - 16;
+      this.cHeight = this.window_height - 40;
+
+      console.log(this.cWidth);
     },
     _computeLabelInfo: function (item, globalZoomMult, rowscale) {
       const n = (((this.constants['DEFAULTDPI'] * window.devicePixelRatio) / (globalZoomMult * rowscale)) / 25.4).toFixed(1);
