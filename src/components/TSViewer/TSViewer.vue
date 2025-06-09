@@ -1,12 +1,12 @@
 <template>
   <div ref="ts_viewer" :class="[isPreview ? 'timeseries-viewer preview' : 'timeseries-viewer']">
-    <timeseries-scrubber ref="scrubber" :ts_start="ts_start" :ts_end="ts_end" :c-width="cWidth"
+    <TSScrubber ref="scrubber" :ts_start="ts_start" :ts_end="ts_end" :c-width="cWidth"
       :label-width="labelWidth" :cursor-loc="cursorLoc" :start="start" :duration="duration" :constants="constants"
       @setStart="updateStart" />
 
     <div id="channelCanvas">
       <!--       Channel labels-->
-      <div id="channelLabels" ref="channelLabels">
+      <div ref="channelLabels" class="channel-labels">
         <div v-for="item in viewerChannels" :key="item.label">
           <div v-if="item.visible" class="chLabelWrap" :data-id="item.id" @tap="onLabelTap">
             <div class="labelDiv">
@@ -22,7 +22,7 @@
       </div>
 
       <!--       Timeseries viewport-->
-      <timeseries-viewer-canvas ref="viewerCanvas" :window_height="window_height" :window_width="window_width"
+      <TSViewerCanvas ref="viewerCanvas" :window_height="window_height" :window_width="window_width"
         :duration="duration" :start="start" :c-width="cWidth" :c-height="cHeight" :constants="constants"
         :ts-start="ts_start" :ts-end="ts_end" :cursor-loc="cursorLoc" :global-zoom-mult="globalZoomMult"
         @setStart="updateStart" @setCursor="setCursor" @setGlobalZoom="setGlobalZoom" @setDuration="setDuration"
@@ -31,19 +31,19 @@
         @updateAnnotation="onUpdateAnnotation" />
     </div>
 
-    <timeseries-viewer-toolbar v-if="!isPreview" :constants="constants" :duration="duration" :start="start"
+    <TSViewerToolbar v-if="!isPreview" :constants="constants" :duration="duration" :start="start"
       @pageBack="onPageBack" @pageForward="onPageForward" @incrementZoom="onIncrementZoom"
       @decrementZoom="onDecrementZoom" @updateDuration="onUpdateDuration" @nextAnnotation="onNextAnnotation"
       @previousAnnotation="onPreviousAnnotation" @setStart="updateStart" />
 
-    <timeseries-filter-modal ref="filterWindow" :visible="filterWindowOpen" @update:visible="filterWindowOpen = $event"
+    <TSFilterModal ref="filterWindow" :visible="filterWindowOpen" @update:visible="filterWindowOpen = $event"
       @closeWindow="onCloseFilterWindow" />
 
-    <timeseries-annotation-modal ref="annotationModal" :visible="annotationWindowOpen"
+    <TSAnnotationModal ref="annotationModal" :visible="annotationWindowOpen"
       @update:visible="annotationWindowOpen = $event" @closeWindow="onCloseAnnotationWindow"
       @createUpdateAnnotation="onCreateUpdateAnnotation" />
 
-    <ts-annotation-delete-dialog :visible="isTsAnnotationDeleteDialogVisible" :delete-annotation="annotationDelete"
+    <TSAnnotationDeleteDialog :visible="isTsAnnotationDeleteDialogVisible" :delete-annotation="annotationDelete"
       @update:visible="isTsAnnotationDeleteDialogVisible = $event" @delete="deleteAnnotation" />
 
 
@@ -66,19 +66,16 @@ import { nextTick } from 'vue';
 import ViewerActiveTool from '../../mixins/viewer-active-tool'
 import Request from '../../mixins/request'
 import TsAnnotation from '../../mixins/ts-annotation'
-import { defineAsyncComponent } from 'vue'
+import TSScrubber from './TSScrubber.vue'
+import TSViewerCanvas from './TSViewerCanvas.vue'
+import TSViewerToolbar from './TSViewerToolbar.vue'
+import TSFilterModal from './TSFilterModal.vue'
+import TSAnnotationModal from './TSAnnotationModal.vue'
+import TSAnnotationDeleteDialog from './TSAnnotationDeleteDialog.vue'
+
 
 export default {
   name: 'TimeseriesViewer',
-
-  components: {
-    'timeseries-scrubber': defineAsyncComponent(() => import('./TSScrubber.vue')),
-    'timeseries-viewer-canvas': defineAsyncComponent(() => import('./TSViewerCanvas.vue')),
-    'timeseries-viewer-toolbar': defineAsyncComponent(() => import('./TSViewerToolbar.vue')),
-    'timeseries-filter-modal': defineAsyncComponent(() => import('./TSFilterModal.vue')),
-    'ts-annotation-delete-dialog': defineAsyncComponent(() => import('./TSAnnotationDeleteDialog/TSAnnotationDeleteDialog.vue')),
-    'timeseries-annotation-modal': defineAsyncComponent(() => import('./TSAnnotationModal.vue')),
-  },
 
   mixins: [
     Request,
@@ -540,7 +537,7 @@ export default {
   flex: 1;
 }
 
-#channelLabels {
+.channel-labels {
   display: flex;
   flex-direction: column;
   justify-content: space-around;

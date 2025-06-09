@@ -93,10 +93,10 @@
 
         </div>
         <div class="buttons">
-          <bf-button
+          <BfButton
             @click="submitForm"
           > {{ actionButtonText }}
-          </bf-button>
+          </BfButton>
         </div>
       </div>
 
@@ -111,14 +111,14 @@ import {
 
 import {mapState} from "vuex";
 import IconSelection from "../icons/IconSelection.vue";
-import { defineAsyncComponent } from 'vue'
+import BfButton from '../Shared/BfButton/BfButton.vue'
 
 export default {
   name: 'TSAnnotationModal',
 
   components: {
     IconSelection,
-    'bf-button': defineAsyncComponent(() => import('../Shared/BfButton/BfButton.vue'))
+    BfButton
   },
 
   props: {

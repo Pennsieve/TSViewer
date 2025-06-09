@@ -2,7 +2,7 @@
   <div class="timeseries-viewer-canvas">
 
     <div id="canvasWrapper">
-      <timeseries-plot-canvas
+      <TSPlotCanvas
         ref="plotCanvas"
         :c-width="cWidth"
         :c-height="cHeight"
@@ -18,7 +18,6 @@
       >
         <template #axisCanvas>
           <canvas
-            id="axisArea"
             ref="axisArea"
             class="canvas"
             :width="_cpCanvasScaler(cWidth, pixelRatio, 0)"
@@ -29,7 +28,6 @@
 
         <template #annCanvas>
           <canvas
-            id="annArea"
             ref="annArea"
             class="canvas"
             :width="_cpCanvasScaler(cWidth, pixelRatio, 0)"
@@ -38,18 +36,17 @@
           />
         </template>
 
-      </timeseries-plot-canvas>
+      </TSPlotCanvas>
 
       <canvas
-        id="cursorArea"
         ref="cursorArea"
-        class="canvas"
+        class="canvas cursor-area"
         :width="_cpCanvasScaler(cWidth + 5, pixelRatio, 0)"
         :height="_cpCanvasScaler(cHeight, pixelRatio,0)"
         :style="canvasStyle3"
       />
 
-      <timeseries-annotation-canvas
+      <TSAnnotationCanvas
         ref="annCanvas"
         :c-width="cWidth"
         :c-height="cHeight"
@@ -68,7 +65,6 @@
       />
 
       <canvas
-        id="iArea"
         ref="iArea"
         class="canvas"
         :width="_cpCanvasScaler(cWidth, pixelRatio, 0)"
@@ -99,16 +95,10 @@
 
     import ViewerActiveTool from'../../mixins/viewer-active-tool'
     import Request from'../../mixins/request'
-    import { defineAsyncComponent } from 'vue'
 
 
     export default {
         name: 'TSViewerCanvas',
-
-        components:{
-            'timeseries-plot-canvas':defineAsyncComponent( () => import('../TSViewer/TSPlotCanvas.vue') ),
-            'timeseries-annotation-canvas': defineAsyncComponent(() => import('../TSViewer/TSAnnotationCanvas.vue'))
-        },
 
         mixins: [
             Request,
@@ -890,7 +880,7 @@
     .canvas[cursor_hover]{
         cursor: col-resize;
     }
-    #cursorArea {
+    .cursor-area {
         margin-left: 0;
     }
     #annotationPopover {

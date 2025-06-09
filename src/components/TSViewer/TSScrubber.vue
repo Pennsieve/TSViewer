@@ -7,16 +7,16 @@
         </div>
         <div class="noselect">
             <div id="scrubber" noselect>
-                <div id="canvasWrap" ref="canvasWrap">
-                    <canvas id="segmentsCanvas" class="canvas" ref="segmentsCanvas"
+                <div class="canvas-wrap">
+                    <canvas class="canvas" ref="segmentsCanvas"
                         :width="_cpCanvasScaler(cWidth, pixelRatio,0)"
                         :height="_cpCanvasScaler(viewportHeight-2, pixelRatio,0)"
                         :style="canvasStyle"></canvas>
-                    <canvas id="annotationCanvas" class="canvas" ref="annotationCanvas"
+                    <canvas class="canvas annotation-canvas" ref="annotationCanvas"
                         :width="_cpCanvasScaler(cWidth, pixelRatio, 0)"
                         :height="_cpCanvasScaler(viewportHeight-2, pixelRatio,0)"
                         :style="canvasStyle"></canvas>
-                    <canvas id="iCanvas" class="canvas" ref="iCanvas" :width="_cpCanvasScaler(cWidth, pixelRatio, 0)" :height="_cpCanvasScaler(viewportHeight, pixelRatio,0)"
+                    <canvas class="canvas i-canvas" ref="iCanvas" :width="_cpCanvasScaler(cWidth, pixelRatio, 0)" :height="_cpCanvasScaler(viewportHeight, pixelRatio,0)"
                         @click="_onTap"
                         v-on:mousemove="_onMouseMove"
                         v-on:mousedown="_onMouseDown"
@@ -549,7 +549,7 @@
         position: relative;
         display: flex;
     }
-    #canvasWrap {
+    .canvas-wrap {
         height: 30px;
         position: relative;
     }
@@ -574,10 +574,10 @@
     .canvas[resizeme] {
         cursor: ew-resize;
     }
-    #annotationCanvas {
+    .annotation-canvas {
         margin-top: 1px;
     }
-    #iCanvas {
+    .i-canvas {
         margin-left: 0px
     }
 

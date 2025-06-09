@@ -1,6 +1,6 @@
 <template>
     <div class="timeseries-plot-canvas">
-        <canvas id="blurArea" class="canvas" ref="blurArea"
+        <canvas class="canvas" ref="blurArea"
             :width="canvasWidth"
             :height="_cpCanvasScaler(pHeight, pixelRatio, 0)"
             :style="canvasStyle"></canvas>
@@ -8,7 +8,7 @@
         </slot>
         <slot name="annCanvas">
         </slot>
-        <canvas id="plotArea" class="canvas" ref="plotArea"
+        <canvas class="canvas" ref="plotArea"
             :width="canvasWidth"
             :height="_cpCanvasScaler(pHeight, pixelRatio, 0)"
             :style="canvasStyle">

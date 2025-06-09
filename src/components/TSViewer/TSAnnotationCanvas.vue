@@ -1,6 +1,5 @@
 <template>
   <canvas
-    id="annLabelArea"
     ref="annLabelArea"
     class="timeseries-annotation-canvas"
     :width="_cpCanvasScaler(cWidth, pixelRatio, 0)"
