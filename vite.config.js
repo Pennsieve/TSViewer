@@ -27,7 +27,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "./src/assets/element-variables.scss" as *;`,
+        additionalData: `@use "${path.resolve(__dirname, 'src/assets/element-variables.scss')}" as *;`,
       },
     },
   },
@@ -36,8 +36,8 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.js'),
-      name: 'YourLibraryName',
-      fileName: (format) => `your-library-name.${format}.js`,
+      name: 'tsviewer',
+      fileName: (format) => `tsviewer.${format}.js`,
     },
     rollupOptions: {
       external: ['vue', 'element-plus'],
@@ -46,7 +46,7 @@ export default defineConfig({
           vue: 'Vue',
           'element-plus': 'ElementPlus',
         },
-        exports: 'default',
+        exports: 'named',
       },
     },
   },

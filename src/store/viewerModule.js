@@ -1,5 +1,3 @@
-// src/store/index.js
-import { createStore } from 'vuex'
 import {
   propOr, propEq, findIndex, flatten, compose,
   pluck, pathOr, includes, remove, find
@@ -244,16 +242,12 @@ const actions = {
   updateUserToken: ({ commit }, token) => commit('UPDATE_USER_TOKEN', token)
 }
 
-const store = createStore({
-  modules: {
-    viewerModule: {
-      namespaced: true,
-      state,
-      getters,
-      mutations,
-      actions
-    }
-  }
-})
+const viewerModule = {
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+}
 
-export default store
+export default viewerModule
