@@ -27,7 +27,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "${path.resolve(__dirname, 'src/assets/element-variables.scss')}" as *;`,
+        additionalData: `@use "${path.resolve(__dirname, 'src/assets/tsviewerVariables.scss')}" as *;`,
       },
     },
   },

@@ -1,0 +1,13 @@
+// Variables first (must be at the top if others depend on them)
+@import './tsviewerVariables.scss';
+@import './tsviewerElementVariables.scss';
+
+// Base styles
+@import './tsviewerBase.scss';
+
+// Component styles
+@import './components/tsviewerElSelect.scss';
+@import './components/tsviewerElTooltip.scss';
+@import './components/tsviewerElDialog.scss';
+@import './components/tsviewerElDropdown.scss';
+@import './components/tsviewerElInput.scss';
