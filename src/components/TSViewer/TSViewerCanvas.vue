@@ -772,15 +772,31 @@
               ctx.restore();
             },
             getScreenPixelRatio: function() {
-                let ctx = this.$refs.iArea.getContext('2d');
-                let dpr = window.devicePixelRatio || 1
-                let bsr = ctx.webkitBackingStorePixelRatio ||
-                ctx.mozBackingStorePixelRatio ||
-                ctx.msBackingStorePixelRatio ||
-                ctx.oBackingStorePixelRatio ||
-                ctx.backingStorePixelRatio || 1;
+              try {
+        const canvas = this.$refs.iArea;
+                if (!canvas || typeof canvas.getContext !== 'function') {
+                    console.warn("Canvas or getContext method not available.");
+                    return 1;
+                }
+
+                const ctx = canvas.getContext('2d');
+                if (!ctx) {
+                    console.warn("2D context could not be obtained from canvas.");
+                    return 1;
+                }
+
+                const dpr = window.devicePixelRatio || 1;
+                const bsr = ctx.webkitBackingStorePixelRatio ||
+                            ctx.mozBackingStorePixelRatio ||
+                            ctx.msBackingStorePixelRatio ||
+                            ctx.oBackingStorePixelRatio ||
+                            ctx.backingStorePixelRatio || 1;
 
                 return dpr / bsr;
+            } catch (error) {
+                console.error("Error getting screen pixel ratio:", error);
+                return 1;
+            }
             },
             getUTCTimeString: function(d) {
                 return ( ('0' + d.getUTCHours()).slice(-2) + ':' +
