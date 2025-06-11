@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/_variables.scss';
+@import '../../../assets/tsviewerVariables.scss';
 
 .bf-button {
   align-items: center;

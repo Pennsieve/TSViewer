@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.2.13",
-    "vuex": "^4.1.0",
-    "tsviewer": "^0.1.0"
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.4",

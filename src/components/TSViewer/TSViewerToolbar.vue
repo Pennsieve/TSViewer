@@ -298,7 +298,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import'../../assets/_variables.scss';
+  @import'../../assets/tsviewerVariables.scss';
 
   .timeseries-viewer-toolbar {
       border-top: 1px solid #DADADA;

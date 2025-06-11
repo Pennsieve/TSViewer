@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import'../../../assets/_variables.scss';
+  @import'../../../assets/tsviewerVariables.scss';
 
   .dialog-body {
     align-items: center;
