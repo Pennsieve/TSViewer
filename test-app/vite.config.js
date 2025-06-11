@@ -17,11 +17,15 @@ export default defineConfig({
     preserveSymlinks: true
   },
   server: {
+    port: 3000,
     fs: {
       allow: [
         resolve(__dirname),
         resolve(__dirname, '../tsviewer') // absolute path is safer
       ]
     }
+  },
+  preview: {
+    port: 3000,
   }
 })
