@@ -17,6 +17,7 @@ import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import testAuthKey from './constants/auth.js'
 import { TSViewer } from 'tsviewer'
+import 'tsviewer/dist/tsviewer.css'
 
 const store = useStore()
 const isReady = ref(false)

@@ -3,12 +3,7 @@
   "version": "0.1.0",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/tsviewer.es.js",
-      "require": "./dist/tsviewer.umd.js"
-    }
-  },
+  "style": "dist/tsviewer.css",
   "files": [
     "dist/"
   ],
