@@ -1,26 +1,28 @@
-import Request from '@/mixins/request'
+import {mapState, mapActions} from "vuex";
+import Request from'../request'
+import {useGetToken} from "../../composables/useGetToken";
 
 export default {
   mixins: [
     Request
   ],
+  data: function() {
+    return {
+    }
+  },
 
   computed: {
-    activeViewer: function() {
-      return this.$store.getters.activeViewer
-    },
-    viewerChannels: function() {
-      return this.$store.getters.viewerChannels
-    },
-    viewerAnnotations: function() {
-      return this.$store.getters.viewerAnnotations
-    },
-    viewerSidePanelOpen: function() {
-      return this.$store.getters.viewerSidePanelOpen
-    },
-    activeAnnotation: function() {
-      return this.$store.getters.activeAnnotation
-    },
+    ...mapState('viewerModule', [
+      'activeViewer',
+      'viewerChannels',
+      'viewerSidePanelOpen',
+      'viewerAnnotations',
+      'activeAnnotation'
+    ]),
+    ...mapActions('viewerModule', [
+      'createAnnotation'
+    ])
+
   },
 
   methods: {
@@ -68,58 +70,59 @@ export default {
 
       // Send ADD annotation request to server
       const timeseriesId = this.activeViewer.content.nodeId
-      const url = `${this.config.apiUrl}/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
-      this.sendXhr(url, {
-        method:'POST',
-        header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
-        },
-        body:XhrBody
-      } ).then((response) => {
-        const newAnn = {
-          name: '',
-          id: response.id,
-          label: response.label,
-          description: response.description,
-          start: response.start,
-          duration: response.end - response.start,
-          end: response.end,
-          cStart: null,
-          cEnd: null,
-          selected: true,
-          channelIds: response.channelIds,
-          allChannels: false,
-          layer_id: response.layerId,
-          userId: response.userId
-        };
-        if (response.linkedPackage) {
-          newAnn.linkedPackage = response.linkedPackage
-        }
+      const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
 
-        // Check if all channels are selected
-        if (newAnn.channelIds.length >= this.viewerChannels.length) {
-          newAnn.allChannels = true;
-        }
+      useGetToken()
+          .then(token => {
+            this.sendXhr(url, {
+              method:'POST',
+              header: {
+                'Authorization': `Bearer ${token}`
+              },
+              body:XhrBody
+            })
+                .then(response => {
+                  const newAnn = {
+                    name: '',
+                    id: response.id,
+                    label: response.label,
+                    description: response.description,
+                    start: response.start,
+                    duration: response.end - response.start,
+                    end: response.end,
+                    cStart: null,
+                    cEnd: null,
+                    selected: true,
+                    channelIds: response.channelIds,
+                    allChannels: false,
+                    layer_id: response.layerId,
+                    userId: response.userId
+                  };
+                  if (response.linkedPackage) {
+                    newAnn.linkedPackage = response.linkedPackage
+                  }
 
-        // Find layer
-        let curLIndex = 0;
-        for (let i = 0; i < this.viewerAnnotations.length; i++) {
-          if (this.viewerAnnotations[i].id === response.layerId) {
-            curLIndex = i;
-            break;
-          }
-        }
+                  // Check if all channels are selected
+                  if (newAnn.channelIds.length >= this.viewerChannels.length) {
+                    newAnn.allChannels = true;
+                  }
 
-        this.$store.dispatch('createAnnotation', newAnn)
-          .then(() => {
-            this.sortAnns(this.viewerAnnotations[curLIndex].annotations);
-            this.onAnnotationCreated()
-          }).catch(error => {
-            console.log(error)
+                  // Find layer
+                  let curLIndex = 0;
+                  for (let i = 0; i < this.viewerAnnotations.length; i++) {
+                    if (this.viewerAnnotations[i].id === response.layerId) {
+                      curLIndex = i;
+                      break;
+                    }
+                  }
+
+                  this.$store.dispatch('viewerModule/createAnnotation',newAnn)
+                      .then(() => {
+                        this.sortAnns(this.viewerAnnotations[curLIndex].annotations);
+                        this.onAnnotationCreated()
+                      })
+                })
           })
-      }).catch(error => {
-        console.log(error)
-      })
     },
     updateAnnotation: function() {
 
@@ -141,7 +144,7 @@ export default {
 
       const annLayerId = this.activeAnnotation.layer_id
       const timeseriesId = this.activeViewer.content.nodeId
-      const url = `${this.config.apiUrl}/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${this.activeAnnotation.id}`;
+      const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${this.activeAnnotation.id}`;
 
       const XhrBody = {
         name: '',
@@ -154,17 +157,20 @@ export default {
       }
 
       const self = this
-      self.sendXhr(url, {
-        method:'PUT',
-        header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
-        },
-        body:XhrBody
-      } ).then(() => {
-        self.$store.dispatch('updateAnnotation', this.activeAnnotation)
-        self.onAnnotationUpdated()
+      useGetToken().then(token => {
+        elf.sendXhr(url, {
+          method:'PUT',
+          header: {
+            'Authorization': `Bearer ${token}`
+          },
+          body:XhrBody
+        } ).then((response) => {
+          self.$store.dispatch('viewerModule/updateAnnotation', this.activeAnnotation)
+          self.onAnnotationUpdated()
+        })
+            .catch(self.handleXhrError.bind(this))
       })
-        .catch(self.handleXhrError.bind(this))
+      s
     },
     removeAnnotation: function(annotation) {
       let annLayerId = ''
@@ -176,19 +182,22 @@ export default {
         annLayerId = annotation.layer_id
       }
       const timeseriesId = this.activeViewer.content.nodeId
-      const url = `${this.config.apiUrl}/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`;
+      const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`;
 
       const self = this
-      self.sendXhr(url, {
-        method:'DELETE',
-        header: {
-          'Authorization': `Bearer ${this.$store.state.userToken}`
-        },
-      } ).then(() => {
-        self.$store.dispatch('deleteAnnotation', annotation)
-        self.onAnnotationDeleted()
+      useGetToken().then(token => {
+        self.sendXhr(url, {
+          method:'DELETE',
+          header: {
+            'Authorization': `Bearer ${token}`
+          },
+        } ).then((response) => {
+          self.$store.dispatch('viewerModule/deleteAnnotation', annotation)
+          self.onAnnotationDeleted()
+        })
+            .catch(self.handleXhrError.bind(this))
       })
-        .catch(self.handleXhrError.bind(this))
+
 
     },
     sortAnns: function(annArray) {
@@ -199,4 +208,4 @@ export default {
       });
     },
   }
-} 
+}

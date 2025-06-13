@@ -1,8 +1,12 @@
+import {
+  mapState
+} from 'vuex'
+
 export default {
   computed: {
-    viewerActiveTool: function() {
-      return this.$store.getters.viewerActiveTool
-    },
+    ...mapState('viewerModule', [
+      'viewerActiveTool'
+    ])
   },
 
   watch: {
