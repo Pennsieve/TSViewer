@@ -1,6 +1,7 @@
+import './assets/styles.scss';
+
 import TSViewer from './components/TSViewer/TSViewer.vue';
 import viewerModule from './store/viewerModule.js'
-import './assets/styles.scss';
 
 export default {
   install(app) {
