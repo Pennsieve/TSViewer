@@ -22,3 +22,12 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# TSViewer
+
+A Vue 3 component library.
+
+## Install
+
+```bash
+npm install tsviewer
