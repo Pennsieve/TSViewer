@@ -52,10 +52,6 @@
 
 <script>
 import {
-  mapState
-} from 'vuex'
-
-import {
   head,
   pathOr,
   propOr,
@@ -72,6 +68,7 @@ import TSViewerToolbar from './TSViewerToolbar.vue'
 import TSFilterModal from './TSFilterModal.vue'
 import TSAnnotationModal from './TSAnnotationModal.vue'
 import TSAnnotationDeleteDialog from './TSAnnotationDeleteDialog.vue'
+import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
 
 export default {
@@ -81,6 +78,7 @@ export default {
     Request,
     ViewerActiveTool,
     TsAnnotation,
+    viewerStoreMixin
   ],
   computed: {
     viewerMontageScheme() {
@@ -97,12 +95,18 @@ export default {
   },
 
   computed: {
-    ...mapState('viewerModule', [
-      'activeViewer',
-      'viewerChannels',
-      'viewerSidePanelOpen',
-      'viewerAnnotations'
-    ]),
+    activeViewer() {
+      return this.viewerStore.activeViewer;
+    },
+    viewerChannels() {
+      return this.viewerStore.viewerChannels;
+    },
+    viewerSidePanelOpen() {
+      return this.viewerStore.viewerSidePanelOpen;
+    },
+    viewerAnnotations() {
+      return this.viewerStore.viewerAnnotations;
+    },
 
     _cpStyleLabels: function (height, nrVisCh) {
       const h = Math.max(1, Math.min(12, (height) / nrVisCh - 2));
@@ -215,7 +219,7 @@ export default {
 
   methods: {
     openEditAnnotationDialog: function (annotation) {
-      this.$store.dispatch('viewerModule/setActiveAnnotation', annotation).then(() => {
+      this.viewerStore.setActiveAnnotation(annotation).then(() => {
         this.$refs.viewerCanvas.renderAnnotationCanvas()
         this.annotationWindowOpen = true
       })
@@ -364,8 +368,7 @@ export default {
         return channel
       })
 
-      this.$store.dispatch('viewerModule/setChannels', _channels)
-
+      this.viewerStore.setChannels(_channels)
     },
     selectChannels: function (ids, append) {
       const channels = this.viewerChannels.map(channel => {
@@ -378,7 +381,7 @@ export default {
         return channel
       })
 
-      this.$store.dispatch('viewerModule/setChannels', channels)
+      this.viewerStore.setChannels(channels)
     },
     updateStart: function (value) {
       this.start = value

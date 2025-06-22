@@ -16,9 +16,6 @@
     </div>
 </template>
 <script>
-    import {
-        mapState
-    } from 'vuex'
 
     import {
         compose,
@@ -36,6 +33,7 @@
 
     import protobuf from 'protobufjs'
     import {useGetToken} from "../../composables/useGetToken";
+    import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
     export default {
         name: 'TimeseriesPlotCanvas',
@@ -62,12 +60,15 @@
 
         },
         computed: {
-            ...mapState('viewerModule', [
-                'activeViewer',
-                'viewerChannels',
-                'viewerMontageScheme'
-            ]),
-
+            activeViewer() {
+              return this.viewerStore.activeViewer;
+            },
+            viewerChannels() {
+              return this.viewerStore.viewerChannels;
+            },
+            viewerMontageScheme() {
+              return this.viewerStore.viewerMontageScheme;
+            },
             canvasWidth: function() {
               return this.pixelRatio * this.cWidth;
             },
@@ -82,6 +83,7 @@
                 return this.cHeight - 20
             }
         },
+        mixins: [viewerStoreMixin],
         data: function () {
             return {
                 proto: {
@@ -450,7 +452,7 @@
                         channelConfig[i].rank = i;
                     }
 
-                    this.$store.dispatch('viewerModule/setChannels', channelConfig)
+                    this.viewerStore.setChannels(channelConfig)
                     this.$emit('channelsInitialized')
 
                 }
@@ -1491,7 +1493,8 @@
                 try {
                   data = JSON.parse(msg.data)
                 } catch (e) {
-                  this.$store.dispatch('viewerModule/setViewerErrors', { error: 'JSON Parse Error' })
+                  this.viewerStore.setViewerErrors({ error: 'JSON Parse Error' })
+
                 }
 
                 if (data.channelDetails) {
@@ -1522,7 +1525,7 @@
                         this.renderAll()
                     })
                 } else if (data.error) {
-                  this.$store.dispatch('viewerModule/setViewerErrors', data)
+                  this.viewerStore.setViewerErrors(data)
                 }
 
                 // short circuit

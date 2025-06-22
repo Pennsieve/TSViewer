@@ -62,10 +62,6 @@
 </template>
 
 <script>
-    import {
-        mapState
-    } from 'vuex'
-
     import CircleIcon from "../Shared/CircleIcon/CircleIcon.vue";
     import BfButton from "../Shared/BfButton/BfButton.vue";
 
@@ -83,11 +79,9 @@
 
         },
         computed: {
-             ...mapState('viewerModule', [
-                'activeViewer',
-            ]),
-            
-
+            activeViewer() {
+                return this.viewerStore.activeViewer;
+            },
         },
         props: {
             annotationLayerWindowOpen: Boolean

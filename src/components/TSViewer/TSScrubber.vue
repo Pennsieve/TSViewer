@@ -42,23 +42,19 @@
         map
     } from 'ramda'
 
-    import {
-        mapActions,
-        mapGetters,
-        mapState
-    } from 'vuex'
-
     import ViewerActiveTool from'../../mixins/viewer-active-tool'
     import Request from'../../mixins/request'
     import {useGetToken} from "../../composables/useGetToken";
     import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
+    import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
     export default {
         name: 'TSScrubber',
 
         mixins: [
             Request,
-            ViewerActiveTool
+            ViewerActiveTool,
+            viewerStoreMixin
         ],
 
         props: {
@@ -73,11 +69,15 @@
         },
 
         computed: {
-            ...mapState('viewerModule', [
-                'activeViewer',
-                'viewerChannels',
-                'viewerAnnotations'
-            ]),
+            activeViewer() {
+              return this.viewerStore.activeViewer;
+            },
+            viewerChannels() {
+              return this.viewerStore.viewerChannels;
+            },
+            viewerAnnotations() {
+              return this.viewerStore.viewerAnnotations;
+            },
             ts_start_str: function() {
                 return this.getUTCTimeString(this.ts_start)
             },
@@ -312,8 +312,7 @@
 
                       chCongig.dataSegments = chCongig.dataSegments.concat(vector.sort(function(a, b) {return a - b}));
 
-                      this.$store.dispatch('viewerModule/updateChannel', chCongig)
-
+                      this.viewerStore.updateChannel(chCongig);
                       // If we did not request all segment-spans yet, get next segment or bail when recursion limit.
                       let span = end - start;
                       if ((start + span) < this.ts_end && ix < max_recursion) {

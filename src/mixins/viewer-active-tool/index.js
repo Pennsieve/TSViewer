@@ -1,12 +1,12 @@
-import {
-  mapState
-} from 'vuex'
-
+import viewerStoreMixin from "../viewer-store-mixin"
 export default {
+  mixins: [
+    viewerStoreMixin
+  ],
   computed: {
-    ...mapState('viewerModule', [
-      'viewerActiveTool'
-    ])
+    viewerActiveTool() {
+      return this.viewerStore.viewerActiveTool;
+    },
   },
 
   watch: {

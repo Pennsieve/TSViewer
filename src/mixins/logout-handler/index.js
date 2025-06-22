@@ -1,13 +1,9 @@
-import { mapActions } from 'vuex'
 import { defaultTo, prop } from 'ramda'
 
 import EventBus from '../../utils/event-bus'
 
 export default {
   methods: {
-    ...mapActions([
-      'clearState'
-    ]),
     /**
      * 'logout' event callback
      */
@@ -20,7 +16,7 @@ export default {
       const shouldRedirect = defaultTo(false, prop('shouldRedirect', payload))
 
       // clear vuex
-      this.clearState()
+      this.viewerStore.clearState()
 
 
       // Add a redirect link

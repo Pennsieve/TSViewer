@@ -1,10 +1,11 @@
-import {mapState, mapActions} from "vuex";
 import Request from'../request'
 import {useGetToken} from "../../composables/useGetToken";
+import viewerStoreMixin from "../viewer-store-mixin"
 
 export default {
   mixins: [
-    Request
+    Request,
+    viewerStoreMixin
   ],
   data: function() {
     return {
@@ -12,16 +13,21 @@ export default {
   },
 
   computed: {
-    ...mapState('viewerModule', [
-      'activeViewer',
-      'viewerChannels',
-      'viewerSidePanelOpen',
-      'viewerAnnotations',
-      'activeAnnotation'
-    ]),
-    ...mapActions('viewerModule', [
-      'createAnnotation'
-    ])
+    activeViewer() {
+      return this.viewerStore.activeViewer;
+    },
+    viewerChannels() {
+      return this.viewerStore.viewerChannels;
+    },
+    viewerSidePanelOpen() {
+      return this.viewerStore.viewerSidePanelOpen;
+    },
+    viewerAnnotations() {
+      return this.viewerStore.viewerAnnotations;
+    },
+    activeAnnotation() {
+      return this.viewerStore.activeAnnotation;
+    },
 
   },
 
@@ -116,7 +122,7 @@ export default {
                     }
                   }
 
-                  this.$store.dispatch('viewerModule/createAnnotation',newAnn)
+                  this.viewerStore.createAnnotation(newAnn)
                       .then(() => {
                         this.sortAnns(this.viewerAnnotations[curLIndex].annotations);
                         this.onAnnotationCreated()
@@ -165,7 +171,7 @@ export default {
           },
           body:XhrBody
         } ).then((response) => {
-          self.$store.dispatch('viewerModule/updateAnnotation', this.activeAnnotation)
+          this.viewerStore.updateAnnotation(this.activeAnnotation)
           self.onAnnotationUpdated()
         })
             .catch(self.handleXhrError.bind(this))
@@ -193,6 +199,7 @@ export default {
           },
         } ).then((response) => {
           self.$store.dispatch('viewerModule/deleteAnnotation', annotation)
+          this.viewerStore.deleteAnnotation(annotation)
           self.onAnnotationDeleted()
         })
             .catch(self.handleXhrError.bind(this))

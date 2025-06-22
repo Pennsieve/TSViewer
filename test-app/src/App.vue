@@ -14,25 +14,24 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useViewerStore, TSViewer } from 'tsviewer'
+import 'tsviewer/dist/tsviewer.css'
+
 import testAuthKey from './constants/auth.js'
-import { TSViewer } from 'tsviewer'
-import 'tsviewer/style'
 
-const store = useStore()
+const viewerStore = useViewerStore()
+
 const isReady = ref(false)
-
 const packageId = ref('N:package:e115e3a8-fba8-4e16-92d0-1394d192d509')
-const userToken = ref(testAuthKey) // You can set a test token here for isolated testing
+const userToken = ref(testAuthKey)
 const packageType = ref('TimeSeries')
 
-
 async function fetchInitialData() {
-  store.commit('viewerModule/UPDATE_USER_TOKEN', userToken.value)
-  return store.dispatch('viewerModule/setActiveViewer', {
-                  packageId: packageId.value,
-                  packageType: packageType.value
-                })       
+  viewerStore.updateUserToken(userToken.value)
+  await viewerStore.fetchAndSetActiveViewer({
+    packageId: packageId.value,
+    packageType: packageType.value
+  })
 }
 
 onMounted(async () => {

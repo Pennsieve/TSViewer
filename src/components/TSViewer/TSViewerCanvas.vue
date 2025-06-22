@@ -85,16 +85,13 @@
 <script>
 /* eslint-disable no-case-declarations */
     import {
-        mapState, mapActions
-    } from 'vuex'
-
-    import {
         find,
         propEq,
     } from 'ramda'
 
     import ViewerActiveTool from'../../mixins/viewer-active-tool'
     import Request from'../../mixins/request'
+    import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
 
     export default {
@@ -102,7 +99,8 @@
 
         mixins: [
             Request,
-            ViewerActiveTool
+            ViewerActiveTool,
+            viewerStoreMixin
         ],
 
         props: {
@@ -120,12 +118,18 @@
         },
 
         computed: {
-            ...mapState('viewerModule', [
-              'activeViewer',
-              'viewerChannels',
-              'viewerActiveTool',
-              'viewerAnnotations'
-            ]),
+            activeViewer() {
+              return this.viewerStore.activeViewer;
+            },
+            viewerChannels() {
+              return this.viewerStore.viewerChannels;
+            },
+            viewerActiveTool() {
+              return this.viewerStore.viewerActiveTool;
+            },
+            viewerAnnotations() {
+              return this.viewerStore.viewerAnnotations;
+            },
             pHeight: function() {
                 return this.cHeight -20;
             },
@@ -333,7 +337,7 @@
                         return channel
                         })
 
-                    this.$store.dispatch('viewerModule/setChannels', channels)
+                    this.viewerStore.setChannels(channels)
                     break
                   case 'annSelect':
                     this.clearICanvas()
@@ -353,7 +357,7 @@
                       return;
                     }
 
-                    const selectedChannels = this.$store.getters['viewerModule/viewerSelectedChannels']
+                    const selectedChannels = this.viewerStore.viewerSelectedChannels();
                     const allChannels = selectedChannels.length === this.viewerChannels.length || selectedChannels.length === 0
 
                     const duration = (e.clientX - this.startDragCoord.x) * this.rsPeriod
@@ -376,8 +380,7 @@
                       userId: null
                     };
 
-                    this.$store.dispatch('viewerModule/setActiveAnnotation', newAnn)
-
+                    this.viewerStore.setActiveAnnotation(newAnn)
                     this.$emit("addAnnotation", startTime, duration, allChannels, this.defaultLabels[this.labelSelect], '', this.viewerAnnotations[curLIndex] )
                     break;
                   case 'annResize-left':
@@ -695,7 +698,7 @@
               ctx.lineWidth = 1;
 
               // Determine if the user is adding annotation to specific channels
-              const selectedChannels = this.$store.getters['viewerModule/viewerSelectedChannels']
+              const selectedChannels = this.viewerStore.viewerSelectedChannels();
               const allChannels = selectedChannels.length === this.viewerChannels.length || selectedChannels.length === 0
 
               const xStart = curX - iCanvas.getBoundingClientRect().left;
@@ -847,7 +850,7 @@
                               notchFreq: payload.notchFreq
                           }
                       }
-                      this.$store.dispatch('viewerModule/updateChannel', channel)
+                      this.viewerStore.updateChannel(channel)
                   }
 
                   this.$refs.plotCanvas.invalidate();

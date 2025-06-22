@@ -109,9 +109,9 @@ import {
   propOr
 } from 'ramda'
 
-import {mapState} from "vuex";
 import IconSelection from "../icons/IconSelection.vue";
 import BfButton from '../Shared/BfButton/BfButton.vue'
+import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
 export default {
   name: 'TSAnnotationModal',
@@ -127,6 +127,8 @@ export default {
       default: false
     }
   },
+
+  mixins: [viewerStoreMixin],
 
   data: function () {
     return {
@@ -169,13 +171,21 @@ export default {
   mounted() {
   },
   computed: {
-    ...mapState('viewerModule', [
-      'activeAnnotation',
-      'activeViewer',
-      'viewerChannels',
-      'viewerActiveTool',
-      'viewerAnnotations'
-    ]),
+    activeAnnotation() {
+      return this.viewerStore.activeAnnotation;
+    },
+    activeViewer() {
+      return this.viewerStore.activeViewer;
+    },
+    viewerChannels() {
+      return this.viewerStore.viewerChannels;
+    },
+    viewerActiveTool() {
+      return this.viewerStore.viewerActiveTool;
+    },
+    viewerAnnotations() {
+      return this.viewerStore.viewerAnnotations;
+    },
     dialogTitle: function() {
       if (this.activeAnnotation.id) {
         return "Edit Annotation"
@@ -270,7 +280,7 @@ export default {
         this.activeAnnotation.end = this.selectedRange * 1000 - this.tzOffset
         this.activeAnnotation.duration = 0
       }
-      this.$store.dispatch('viewerModule/setActiveAnnotation', this.activeAnnotation)
+      this.viewerStore.setActiveAnnotation(this.activeAnnotation)
 
       this.$emit('createUpdateAnnotation', this.activeAnnotation)
     },
