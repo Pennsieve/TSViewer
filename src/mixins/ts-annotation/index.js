@@ -79,7 +79,7 @@ export default {
       const timeseriesId = this.activeViewer.content.nodeId
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
 
-      useGetToken()
+      this.useGetToken()
           .then(token => {
             this.sendXhr(url, {
               method:'POST',
@@ -164,7 +164,7 @@ export default {
       }
 
       const self = this
-      useGetToken().then(token => {
+      this.useGetToken().then(token => {
         elf.sendXhr(url, {
           method:'PUT',
           header: {
@@ -192,7 +192,7 @@ export default {
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`;
 
       const self = this
-      useGetToken().then(token => {
+      this.useGetToken().then(token => {
         self.sendXhr(url, {
           method:'DELETE',
           header: {
