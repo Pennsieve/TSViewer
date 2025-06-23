@@ -15,9 +15,9 @@ import Request from'../../mixins/request'
 import EventBus from'../../utils/event-bus'
 
 import {defaultTo, find, head, pathOr, prop, propEq, propOr} from 'ramda'
-import {useGetToken} from "../../composables/useGetToken";
 import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
 import viewerStoreMixin from '../../mixins/viewer-store-mixin'
+import authToken from '../../mixins/auth-token'
 
 export default {
         name: 'TimeseriesAnnotationCanvas',
@@ -25,7 +25,8 @@ export default {
         mixins: [
             Request,
             ViewerActiveTool,
-            viewerStoreMixin
+            viewerStoreMixin,
+            authToken
         ],
         props: {
             cWidth: {

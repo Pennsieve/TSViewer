@@ -32,8 +32,8 @@
     } from 'ramda'
 
     import protobuf from 'protobufjs'
-    import {useGetToken} from "../../composables/useGetToken";
     import viewerStoreMixin from '../../mixins/viewer-store-mixin'
+    import authToken from '../../mixins/auth-token'
 
     export default {
         name: 'TimeseriesPlotCanvas',
@@ -83,7 +83,7 @@
                 return this.cHeight - 20
             }
         },
-        mixins: [viewerStoreMixin],
+        mixins: [viewerStoreMixin, authToken],
         data: function () {
             return {
                 proto: {
