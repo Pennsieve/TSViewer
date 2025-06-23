@@ -1,11 +1,12 @@
 import Request from'../request'
-import {useGetToken} from "../../composables/useGetToken";
 import viewerStoreMixin from "../viewer-store-mixin"
+import authToken from '../auth-token'
 
 export default {
   mixins: [
     Request,
-    viewerStoreMixin
+    viewerStoreMixin,
+    authToken
   ],
   data: function() {
     return {

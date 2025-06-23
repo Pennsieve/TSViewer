@@ -44,9 +44,9 @@
 
     import ViewerActiveTool from'../../mixins/viewer-active-tool'
     import Request from'../../mixins/request'
-    import {useGetToken} from "../../composables/useGetToken";
     import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
     import viewerStoreMixin from '../../mixins/viewer-store-mixin'
+    import authToken from '../../mixins/auth-token'
 
     export default {
         name: 'TSScrubber',
@@ -54,7 +54,8 @@
         mixins: [
             Request,
             ViewerActiveTool,
-            viewerStoreMixin
+            viewerStoreMixin,
+            authToken
         ],
 
         props: {
