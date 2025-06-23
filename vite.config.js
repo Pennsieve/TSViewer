@@ -44,6 +44,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           'element-plus': 'ElementPlus',
+          'pinia': 'Pinia',
         },
         exports: 'named',
       },
