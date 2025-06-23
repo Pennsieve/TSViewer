@@ -258,7 +258,7 @@
             _requestSegmentSpan: function(channel, channelIdx, start, end, ix) {
                 const max_recursion = this.constants['MAXRECURSION']
 
-              useGetToken()
+              this.useGetToken()
                 .then(token => {
                   const url = `https://api.pennsieve.net/streaming/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`;
                   return this.sendXhr(url)
@@ -328,7 +328,7 @@
                 })
             },
             getAnnotations: function() {
-              useGetToken()
+              this.useGetToken()
                 .then(token => {
                   const layerIds = map(obj => obj.id, this.viewerAnnotations);
                   const endTime = this.ts_end;
