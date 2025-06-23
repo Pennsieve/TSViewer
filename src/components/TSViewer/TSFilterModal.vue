@@ -63,9 +63,6 @@
 </template>
 
 <script>
-import {
-  mapState
-} from 'vuex'
 
 import EventBus from'../../utils/event-bus'
 import IconSelection from "../icons/IconSelection.vue"
@@ -84,9 +81,9 @@ export default {
 
   },
   computed: {
-    ...mapState('viewerModule', [
-      'activeViewer',
-    ]),
+    activeViewer() {
+      return this.viewerStore.activeViewer;
+    },
     computeVisible0: function () {
       switch (this.selectedFilter) {
         case 'lowpass':

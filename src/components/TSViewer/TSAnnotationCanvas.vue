@@ -14,18 +14,18 @@ import ViewerActiveTool from'../../mixins/viewer-active-tool'
 import Request from'../../mixins/request'
 import EventBus from'../../utils/event-bus'
 
-import {mapState} from 'vuex'
-
 import {defaultTo, find, head, pathOr, prop, propEq, propOr} from 'ramda'
 import {useGetToken} from "../../composables/useGetToken";
 import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
+import viewerStoreMixin from '../../mixins/viewer-store-mixin'
 
 export default {
         name: 'TimeseriesAnnotationCanvas',
 
         mixins: [
             Request,
-            ViewerActiveTool
+            ViewerActiveTool,
+            viewerStoreMixin
         ],
         props: {
             cWidth: {
@@ -75,17 +75,25 @@ export default {
                 a11yList:['#FFFF4E'],
                 focusedAnn: null,
                 renderAnn: null,
-                mouseDownPosition: null
+                mouseDownPosition: null,
             }
         },
         computed: {
-            ...mapState('viewerModule', [
-                'activeViewer',
-                'viewerChannels',
-                'viewerActiveTool',
-                'viewerAnnotations',
-                'viewerMontageScheme'
-            ]),
+              activeViewer() {
+                return this.viewerStore.activeViewer;
+              },
+              viewerChannels() {
+                return this.viewerStore.viewerChannels;
+              },
+              viewerActiveTool() {
+                return this.viewerStore.viewerActiveTool;
+              },
+              viewerAnnotations() {
+                return this.viewerStore.viewerAnnotations;
+              },
+              viewerMontageScheme() {
+                return this.viewerStore.viewerMontageScheme;
+              },
             pHeight: function() {
                 return this.cHeight -20;
             },
@@ -154,7 +162,7 @@ export default {
                     if (annLayers) {
                         annLayers[0].selected = true
                     }
-                    this.$store.dispatch('viewerModule/setAnnotations', annLayers).then(() => {
+                    this.viewerStore.setAnnotations(annLayers).then(() => {
                         this.$emit('annLayersInitialized')
                         // this.setActiveLayer(this.annLayers[0]);
                     })
@@ -272,7 +280,7 @@ export default {
             },
             // ANNOTATIONS
             findNextAnnotation: function(curTime) {
-                let annLayer = this.$store.getters['viewerModule/getViewerActiveLayer']();
+                let annLayer = this.viewerStore.getViewerActiveLayer();
                 const index = this.annIndexOf(annLayer.annotations, curTime, false);
 
                 if (index < annLayer.annotations.length) {
@@ -282,7 +290,7 @@ export default {
                 }
             },
             findPreviousAnnotation: function(curTime) {
-                let annLayer = this.$store.getters['viewerModule/getViewerActiveLayer']();
+                let annLayer = this.viewerStore.getViewerActiveLayer();
                 const index = this.annIndexOf(annLayer.annotations, curTime, true);
 
                 if(index > 0 ) {
@@ -479,7 +487,7 @@ export default {
                             annotations:[],
                             userId: curAnn.userId
                             }
-                            this.$store.dispatch('viewerModule/createLayer', newLayer);
+                            this.viewerStore.createLayer(newLayer);
                             curLIndex = this.viewerAnnotations.length -1;
                         }
                         annotations.push(newAnn);
@@ -491,7 +499,7 @@ export default {
                         const filteredAnns = annotations.filter(ann => layer.id === ann.layer_id);
                         layer.annotations = layerAnns.concat(filteredAnns);
                         // get all annotations per layer
-                        this.$store.dispatch('viewerModule/updateLayer', layer);
+                        this.viewerStore.updateLayer({ layer, index });
                     });
                 } else {
                     // if no annotations exist, force render layers in side panel
@@ -649,9 +657,9 @@ export default {
                     layer.selColor = this.hexToRgbA(hexColor, 0.9)
                     layer.visible = true
 
-                    return this.$store.dispatch('viewerModule/createLayer', layer)
+                    return this.viewerStore.createLayer(layer)
                       .then(() => {
-                        return this.$store.dispatch('viewerModule/setActiveAnnotationLayer', layer)
+                        return this.viewerStore.setActiveAnnotationLayer(layer.id)
                           .then(() => {
                             EventBus.$emit('toast', {
                               detail: {
@@ -1053,7 +1061,7 @@ export default {
                       this.focusedAnn.end = start + duration
                     }
 
-                    this.$store.dispatch('viewerModule/setActiveAnnotation', this.focusedAnn).then(() => {
+                    this.viewerStore.setActiveAnnotation(this.focusedAnn).then(() => {
                       this.$emit('updateAnnotation', this.focusedAnn)
                       }
                     )
@@ -1076,8 +1084,8 @@ export default {
 
           },
             // ACTION METHODS
-            selectFocusedAnn: function(){
-              this.$store.dispatch('viewerModule/setActiveAnnotation', this.focusedAnn)
+            selectFocusedAnn: async function(){
+              await this.viewerStore.setActiveAnnotation(this.focusedAnn)
               this.$nextTick(() => {
                 this.render()
               })

@@ -155,6 +155,8 @@
     import IconStopwatch from "../icons/IconStopwatch.vue";
     import IconControllerPlay from "../icons/IconControllerPlay.vue";
     import IconControllerPause from "../icons/IconControllerPause.vue";
+    import viewerStoreMixin from '../../mixins/viewer-store-mixin'
+
     export default {
         name: 'TSViewerToolbar',
       components: {
@@ -181,6 +183,7 @@
             }
           }
         },
+        mixins: [viewerStoreMixin],
         props: {
            constants: Object,
            duration: Number,
@@ -236,7 +239,7 @@
         },
         methods: {
           updateMontageScheme: function (value) {
-            this.$store.dispatch('viewerModule/setViewerMontageScheme', value)
+            this.viewerStore.setViewerMontageScheme(value)
           },
           updatePlaybackSpeed: function (value) {
           },

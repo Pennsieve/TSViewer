@@ -1,19 +1,6 @@
 import  {shallowMount, mount} from '@vue/test-utils'
 import EventBus from '../../utils/event-bus'
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
-import { HttpResponse, http } from 'msw'
-import { createStore } from 'vuex'
-
-const store = createStore({
-  state() {
-    return {
-    }
-  },
-  actions: {
-    clearState: ({commit}) => {
-    }
-  }
-})
 
 import request from './'
 import TestComponent from "../test-component.vue";
