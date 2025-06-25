@@ -17,7 +17,7 @@ import EventBus from'../../utils/event-bus'
 import {defaultTo, find, head, pathOr, prop, propEq, propOr} from 'ramda'
 import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
 import viewerStoreMixin from '../../mixins/viewer-store-mixin'
-import authToken from '../../mixins/auth-token'
+import { useToken } from '../../composables/useToken';
 
 export default {
         name: 'TimeseriesAnnotationCanvas',
@@ -26,7 +26,6 @@ export default {
             Request,
             ViewerActiveTool,
             viewerStoreMixin,
-            authToken
         ],
         props: {
             cWidth: {
@@ -106,7 +105,7 @@ export default {
             },
         },
         mounted: function () {
-          this.useGetToken()
+          useToken()
             .then(token => {
               const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
               return useSendXhr(url)
@@ -374,7 +373,7 @@ export default {
                                 limit: this.constants['LIMITANNFETCH']
                             }
 
-                            this.useGetToken()
+                            useToken()
                               .then(token => {
                                 const apiUrl = 'https://api.pennsieve.net'
                                 const baseUrl = `${apiUrl}/timeseries/${this.activeViewer.content.id}/layers/${curLayer.id}/annotations?api_key=${token}`;
@@ -637,7 +636,7 @@ export default {
             },
             createAnnotationLayer: function(newLayer) {
 
-              this.useGetToken()
+              useToken()
                 .then(token => {
                   const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
                   return useSendXhr(url, {
@@ -922,7 +921,7 @@ export default {
                       const { id, packageId } = preview
                       const apiUrl = 'https://api.pennsieve.net'
 
-                      this.useGetToken()
+                      useToken()
                         .then(token => {
                           img.src = `${apiUrl}/packages/${packageId}/files/${id}/presign/?api_key=${token}`
                           if (!img.complete) {
