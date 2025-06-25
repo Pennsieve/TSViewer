@@ -5,6 +5,7 @@ import {
 } from 'ramda';
 import { viewerSidePanelTypes, viewerToolTypes } from '../utils/constants';
 import { useSendXhr } from '../mixins/request/request_composable';
+import { useToken } from '../composables/useToken'
 
 const getLayerIndex = (key, data, viewerAnnotations) => {
   const layerId = propOr('', key, data);
@@ -70,7 +71,7 @@ export const useViewerStore = defineStore('viewer', {
 
     async fetchAndSetActiveViewer(data) {
       const id = data.packageId;
-      const token = this.userToken;
+      const token = await useToken();
       const url = `https://api.pennsieve.net/packages/${id}?api_key=${token}`;
       const response = await useSendXhr(url);
       this.setActiveViewer(response);
