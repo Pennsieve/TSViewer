@@ -106,7 +106,7 @@ export default {
             },
         },
         mounted: function () {
-          this.useGetToken()
+          useGetToken()
             .then(token => {
               const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
               return useSendXhr(url)
@@ -374,7 +374,7 @@ export default {
                                 limit: this.constants['LIMITANNFETCH']
                             }
 
-                            this.useGetToken()
+                            useGetToken()
                               .then(token => {
                                 const apiUrl = 'https://api.pennsieve.net'
                                 const baseUrl = `${apiUrl}/timeseries/${this.activeViewer.content.id}/layers/${curLayer.id}/annotations?api_key=${token}`;
@@ -637,7 +637,7 @@ export default {
             },
             createAnnotationLayer: function(newLayer) {
 
-              this.useGetToken()
+              useGetToken()
                 .then(token => {
                   const url = `https://api.pennsieve.net/timeseries/${this.activeViewer.content.id}/layers?api_key=${token}`;
                   return useSendXhr(url, {
@@ -922,7 +922,7 @@ export default {
                       const { id, packageId } = preview
                       const apiUrl = 'https://api.pennsieve.net'
 
-                      this.useGetToken()
+                      useGetToken()
                         .then(token => {
                           img.src = `${apiUrl}/packages/${packageId}/files/${id}/presign/?api_key=${token}`
                           if (!img.complete) {

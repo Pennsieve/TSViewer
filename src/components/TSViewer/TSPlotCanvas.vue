@@ -1430,7 +1430,7 @@
                     return;
                 }
 
-              this.useGetToken()
+              useGetToken()
                 .then(token => {
 
                   const url =  'wss://api.pennsieve.net/streaming/ts/query?session=' + token + '&package=' + this.activeViewer.content.id
