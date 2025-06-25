@@ -41,10 +41,10 @@
     "vue": "^3.2.45"
   },
   "peerDependencies": {
+    "aws-amplify": "^6.6.7",
     "element-plus": "^2.3.0",
     "pinia": "^3.0.3",
-    "vue": "^3.2.0",
-    "aws-amplify": "^6.6.7"
+    "vue": "^3.2.0"
   },
   "eslintConfig": {
     "root": true,
