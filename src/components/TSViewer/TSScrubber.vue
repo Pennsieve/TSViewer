@@ -46,7 +46,7 @@
     import Request from'../../mixins/request'
     import {useHandleXhrError, useSendXhr} from "../../mixins/request/request_composable";
     import viewerStoreMixin from '../../mixins/viewer-store-mixin'
-    import authToken from '../../mixins/auth-token'
+    import { useToken } from '../../composables/useToken';
 
     export default {
         name: 'TSScrubber',
@@ -55,7 +55,6 @@
             Request,
             ViewerActiveTool,
             viewerStoreMixin,
-            authToken
         ],
 
         props: {
@@ -258,7 +257,7 @@
             _requestSegmentSpan: function(channel, channelIdx, start, end, ix) {
                 const max_recursion = this.constants['MAXRECURSION']
 
-              useGetToken()
+              useToken()
                 .then(token => {
                   const url = `https://api.pennsieve.net/streaming/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`;
                   return this.sendXhr(url)
@@ -328,7 +327,7 @@
                 })
             },
             getAnnotations: function() {
-              useGetToken()
+              useToken()
                 .then(token => {
                   const layerIds = map(obj => obj.id, this.viewerAnnotations);
                   const endTime = this.ts_end;

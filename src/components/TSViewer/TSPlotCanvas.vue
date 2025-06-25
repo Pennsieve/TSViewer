@@ -33,7 +33,7 @@
 
     import protobuf from 'protobufjs'
     import viewerStoreMixin from '../../mixins/viewer-store-mixin'
-    import authToken from '../../mixins/auth-token'
+    import { useToken } from '../../composables/useToken';
 
     export default {
         name: 'TimeseriesPlotCanvas',
@@ -83,7 +83,7 @@
                 return this.cHeight - 20
             }
         },
-        mixins: [viewerStoreMixin, authToken],
+        mixins: [viewerStoreMixin],
         data: function () {
             return {
                 proto: {
@@ -1430,7 +1430,7 @@
                     return;
                 }
 
-              useGetToken()
+              useToken()
                 .then(token => {
 
                   const url =  'wss://api.pennsieve.net/streaming/ts/query?session=' + token + '&package=' + this.activeViewer.content.id

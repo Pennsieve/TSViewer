@@ -1,12 +1,11 @@
 import Request from'../request'
 import viewerStoreMixin from "../viewer-store-mixin"
-import authToken from '../auth-token'
+import { useToken } from '../../composables/useToken'
 
 export default {
   mixins: [
     Request,
     viewerStoreMixin,
-    authToken
   ],
   data: function() {
     return {
@@ -79,7 +78,7 @@ export default {
       const timeseriesId = this.activeViewer.content.nodeId
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
 
-      useGetToken()
+      useToken()
           .then(token => {
             this.sendXhr(url, {
               method:'POST',
@@ -164,7 +163,7 @@ export default {
       }
 
       const self = this
-      useGetToken().then(token => {
+      useToken().then(token => {
         elf.sendXhr(url, {
           method:'PUT',
           header: {
@@ -192,7 +191,7 @@ export default {
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`;
 
       const self = this
-      useGetToken().then(token => {
+      useToken().then(token => {
         self.sendXhr(url, {
           method:'DELETE',
           header: {

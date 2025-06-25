@@ -39,7 +39,7 @@ export default defineConfig({
       fileName: (format) => `tsviewer.${format}.js`,
     },
     rollupOptions: {
-      external: ['vue', 'element-plus', 'pinia'],
+      external: ['vue', 'element-plus', 'pinia', 'aws-amplify'],
       output: {
         globals: {
           vue: 'Vue',
