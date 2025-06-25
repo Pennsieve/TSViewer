@@ -45,7 +45,7 @@ export default defineConfig({
           vue: 'Vue',
           'element-plus': 'ElementPlus',
           'pinia': 'Pinia',
-          'aws-amplify': 'aws_amplify',
+          'aws-amplify': 'aws_amplify'
         },
         exports: 'named',
       },
