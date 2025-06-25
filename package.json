@@ -1,6 +1,6 @@
 {
   "name": "tsviewer",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
   "style": "dist/tsviewer.css",
@@ -43,7 +43,8 @@
   "peerDependencies": {
     "element-plus": "^2.3.0",
     "pinia": "^3.0.3",
-    "vue": "^3.2.0"
+    "vue": "^3.2.0",
+    "aws-amplify": "^6.6.7"
   },
   "eslintConfig": {
     "root": true,
