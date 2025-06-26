@@ -1,11 +1,18 @@
-import { inject } from 'vue';
+import {fetchAuthSession} from "aws-amplify/auth";
 
-export const useToken = () => {
-  const getToken = inject('getToken');
-  if (!getToken) {
-    throw new Error(
-      'getToken is not provided. Please use a Nuxt plugin or Vue app to provide it.'
-    );
-  }
-  return getToken;
-};
+export async function useToken() {
+    try {
+        return fetchAuthSession().then((session) => {
+            console.log('session object', session)
+            console.log('access token is', session?.tokens?.accessToken.toString())
+            return session?.tokens?.accessToken.toString();
+            }
+        );
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function useLogout() {
+    Auth.logout()
+}

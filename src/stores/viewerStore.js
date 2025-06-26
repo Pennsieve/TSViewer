@@ -13,7 +13,6 @@ const getLayerIndex = (key, data, viewerAnnotations) => {
 };
 
 const initialState = () => ({
-  userToken: '',
   selectedPackage: {},
   activeViewer: {},
   viewerSidePanelOpen: false,
@@ -193,10 +192,6 @@ export const useViewerStore = defineStore('viewer', {
 
     setViewerMontageScheme(scheme) {
       this.viewerMontageScheme = scheme;
-    },
-
-    updateUserToken(token) {
-      this.userToken = token;
     },
 
     selectPackage(pkg) {
