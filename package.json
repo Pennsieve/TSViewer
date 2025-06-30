@@ -1,12 +1,22 @@
 {
   "name": "tsviewer",
-  "version": "1.0.17",
+  "version": "1.0.22",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
   "style": "dist/tsviewer.css",
   "files": [
     "dist/"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/tsviewer.es.js",
+      "require": "./dist/tsviewer.umd.js",
+      "default": "./dist/tsviewer.umd.js"
+    },
+    "./style": {
+      "default": "./dist/tsviewer.css"
+    }
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite"
@@ -14,7 +24,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "2.3.1",
     "core-js": "^3.8.3",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "^7.2.6",
     "ramda": "^0.28.0",
     "tiny-emitter": "2.1.0"
   },
