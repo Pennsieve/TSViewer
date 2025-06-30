@@ -40,7 +40,7 @@ export default {
             pixelRatio: Number,
             constants: Object,
             pointerMode: String,
-            annotationsCanvas: HTMLCanvasElement
+            annotationsCanvas
         },
         data: function () {
             return {
