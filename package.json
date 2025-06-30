@@ -1,21 +1,12 @@
 {
   "name": "tsviewer",
-  "version": "1.0.13",
+  "version": "1.0.17",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
   "style": "dist/tsviewer.css",
   "files": [
     "dist/"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/tsviewer.es.js",
-      "require": "./dist/tsviewer.umd.js"
-    },
-    "./style": {
-      "default": "./dist/tsviewer.css"
-    }
-  },
   "scripts": {
     "build": "vite build",
     "dev": "vite"
@@ -28,7 +19,7 @@
     "tiny-emitter": "2.1.0"
   },
   "devDependencies": {
-    "@aws-amplify/auth": "^6.13.1",
+    "@aws-amplify/auth": "^6.5.4",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-sfc": "^3.2.45",
     "element-plus": "^2.3.0",
@@ -42,7 +33,7 @@
     "vue": "^3.2.45"
   },
   "peerDependencies": {
-    "@aws-amplify/auth": "^6.13.1",
+    "@aws-amplify/auth": "^6.5.4",
     "element-plus": "^2.3.0",
     "pinia": "^3.0.3",
     "vue": "^3.2.0"
