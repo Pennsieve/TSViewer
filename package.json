@@ -1,6 +1,6 @@
 {
   "name": "tsviewer",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
   "style": "dist/tsviewer.css",
@@ -64,5 +64,9 @@
     "last 2 versions",
     "not dead"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pennsieve/TSViewer.git"
+  }
 }
