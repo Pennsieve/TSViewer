@@ -88,7 +88,7 @@ export const useViewerStore = defineStore('viewer', {
       const url = `https://api.pennsieve.net/packages/${id}?api_key=${token}`;
       const response = await useSendXhr(url);
       
-      if (this.isFileProcessed(response)) {
+      if (this.isTSFileProcessed(response)) {
         this.setActiveViewer(response);
         return Promise.resolve(response);
       } else {
