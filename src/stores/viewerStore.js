@@ -50,13 +50,27 @@ export const useViewerStore = defineStore('viewer', {
       flatten,
       pluck('annotations')
     )(state.viewerAnnotations),
+
     viewerMpp: (state) => compose(
       propOr('', 'value'),
       find(propEq('key', 'aperio.MPP')),
       propOr([{}], 'properties'),
       find(propEq('category', 'Blackfynn')),
       propOr([{}], 'properties')
-    )(state.activeViewer)
+    )(state.activeViewer),
+
+    /**
+       * Getter to check if file is processed
+       * @param {Object} fileRecord - The file record object to check status for
+       * @returns {Boolean} True if file is processed (READY), false otherwise
+       */
+    isTSFileProcessed: (state) => {
+      return (record) => {
+        const fileState = record?.content?.state;
+        return fileState === "READY";
+      }
+    }
+
   },
 
   actions: {
@@ -73,7 +87,13 @@ export const useViewerStore = defineStore('viewer', {
       const token = await useToken();
       const url = `https://api.pennsieve.net/packages/${id}?api_key=${token}`;
       const response = await useSendXhr(url);
-      this.setActiveViewer(response);
+      
+      if (this.isFileProcessed(response)) {
+        this.setActiveViewer(response);
+        return Promise.resolve(response);
+      } else {
+        throw new Error('Timeseries viewer is not available, since the file is not processed');
+      }
     },
 
     closeViewer() {

@@ -1,6 +1,6 @@
 {
   "name": "tsviewer",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "./dist/tsviewer.umd.js",
   "module": "./dist/tsviewer.es.js",
   "style": "dist/tsviewer.css",
