@@ -1,7 +1,5 @@
 import { defaultTo, prop } from 'ramda'
 
-import EventBus from '../../utils/event-bus'
-
 export default {
   methods: {
     /**
@@ -33,10 +31,10 @@ export default {
         query
       })
 
-      // fire toast
-      if (shouldShowToast) {
-        EventBus.$emit('toast', { detail: { msg: 'Logged Out' }})
-      }
+      // // fire toast
+      // if (shouldShowToast) {
+      //   EventBus.$emit('toast', { detail: { msg: 'Logged Out' }})
+      // } TODO
     }
   }
 }

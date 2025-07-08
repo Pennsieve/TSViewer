@@ -53,13 +53,13 @@ import {
   pathOr, propOr
 } from 'ramda'
 
-import BfDialogHeader from'../Shared/bf-dialog-header/BfDialogHeader.vue'
-import DialogBody from'../Shared/dialog-body/DialogBody.vue'
-import BfButton from'../Shared/BfButton/BfButton.vue'
-import IconWarningCircle from'../icons/IconWarningCircle.vue'
+import BfDialogHeader from '@/components/shared/bf-dialog-header/BfDialogHeader.vue'
+import DialogBody from '@/components/shared/dialog-body/DialogBody.vue'
+import BfButton from '@/components/shared/bf-button/BfButton.vue'
+import IconWarningCircle from '@/components/icons/IconWarningCircle.vue'
 
 export default {
-  name: 'TSAnnotationDeleteDialog',
+  name: 'TsAnnotationDeleteDialog',
 
   components: {
     BfDialogHeader,
@@ -160,7 +160,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import'../../assets/tsviewerVariables.scss';
+@import '../../../assets/tsviewerVariables.scss';
 
 .mb-16 {
   color: $red_1

@@ -1,7 +1,6 @@
 // request_composable.js
 
 import {compose, defaultTo, prop, propOr, tryCatch} from "ramda";
-import EventBus from "../../utils/event-bus";
 import {useHandleLogout} from "../logout-handler/logout_handler_composable";
 
 const _isString = (x) => Object.prototype.toString.call(x) === '[object String]'
@@ -73,7 +72,7 @@ export function useHandleXhrError(err) {
         // emit ajaxError
         console.log(err)
         return
-        // EventBus.$emit('ajaxError', err)
+        // EventBus.$emit('ajaxError', err) TODO
     } else {
         status = err.status
     }
@@ -82,12 +81,12 @@ export function useHandleXhrError(err) {
         err.body.getReader().read().then(({ done, value }) => {
             const strData = value instanceof Uint8Array ? String.fromCharCode.apply(null, value) : value
             const errorMsg = compose(defaultTo(strData), tryCatch(compose(prop('message'), JSON.parse), (_, v) => v))(strData)
-            EventBus.$emit('ajaxError', {
-                detail: {
-                    type: 'error',
-                    msg: errorMsg
-                }
-            })
+            // EventBus.$emit('ajaxError', {
+            //     detail: {
+            //         type: 'error',
+            //         msg: errorMsg
+            //     }
+            // }) TODO
         })
     } // logout
     else if (status === 401) {
@@ -96,6 +95,6 @@ export function useHandleXhrError(err) {
     }
     else {
         // emit ajaxError
-        EventBus.$emit('ajaxError', err)
+        // EventBus.$emit('ajaxError', err) TODO
     }
 }

@@ -1,5 +1,4 @@
 import  {shallowMount, mount} from '@vue/test-utils'
-import EventBus from '../../utils/event-bus'
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 
 import request from './'
@@ -86,9 +85,9 @@ describe('request Mixin', () => {
   })
 
   it('handleXhrError: handles errors', (done) => {
-    EventBus.$on('ajaxError', () => new Promise(done => {
-      done()
-    }))
+    // EventBus.$on('ajaxError', () => new Promise(done => {
+    //   done()
+    // })) TODO
     cmp.vm.handleXhrError({status: 500})
     cmp.vm.$nextTick(() => {
       expect(cmp.vm.isLoading).toBe(false)

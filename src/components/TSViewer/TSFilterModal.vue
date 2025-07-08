@@ -64,14 +64,13 @@
 
 <script>
 
-import EventBus from'../../utils/event-bus'
 import IconSelection from "../icons/IconSelection.vue"
 
 export default {
-  name: 'TSFilterModal',
+  name: 'TimeseriesFilterModal',
 
   components: {
-    'bf-button': () => import('../Shared/BfButton/BfButton.vue'),
+    'bf-button': () => import('@/components/shared/bf-button/BfButton.vue'),
     IconSelection
   },
 
@@ -81,9 +80,6 @@ export default {
 
   },
   computed: {
-    activeViewer() {
-      return this.viewerStore.activeViewer;
-    },
     computeVisible0: function () {
       switch (this.selectedFilter) {
         case 'lowpass':
@@ -203,16 +199,16 @@ export default {
     onButtonClick: function () {
     },
     submitForm: function (e) {
-      EventBus.$emit('active-viewer-action', {
-        method: 'setTimeseriesFilters',
-        payload: {
-          selChannels: this.onChannels,
-          filterType: this.selectedFilter,
-          input0: this.input0,
-          input1: this.input1,
-          notchFreq: this.selectedNotch
-        }
-      })
+      // EventBus.$emit('active-viewer-action', {
+      //   method: 'setTimeseriesFilters',
+      //   payload: {
+      //     selChannels: this.onChannels,
+      //     filterType: this.selectedFilter,
+      //     input0: this.input0,
+      //     input1: this.input1,
+      //     notchFreq: this.selectedNotch
+      //   }
+      // })
       this.$emit('closeWindow')
     },
   }
@@ -221,7 +217,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import'../../assets/tsviewerVariables.scss';
+@import '../../assets/tsviewerVariables.scss';
 
 .timeseries-filter-modal {
   display: block;

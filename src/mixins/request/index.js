@@ -1,4 +1,3 @@
-import EventBus from '../../utils/event-bus'
 import Logger from '../../mixins/logger'
 import LogoutHandler from '../../mixins/logout-handler'
 import { always, compose, defaultTo, pathOr, prop, propOr, tryCatch, F } from 'ramda'
@@ -91,12 +90,12 @@ export default {
         err.body.getReader().read().then(({ done, value }) => {
           const strData = value instanceof Uint8Array ? String.fromCharCode.apply(null, value) : value
           const errorMsg = compose(defaultTo(strData), tryCatch(compose(prop('message'), JSON.parse), (_, v) => v))(strData)
-          EventBus.$emit('ajaxError', {
-            detail: {
-              type: 'error',
-              msg: errorMsg
-            }
-          })
+          // EventBus.$emit('ajaxError', {
+          //   detail: {
+          //     type: 'error',
+          //     msg: errorMsg
+          //   }
+          // }) TODO
         })
       } // logout
       else if (status === 401) {
@@ -113,7 +112,7 @@ export default {
       else {
         // emit ajaxError
         console.log(err)
-        EventBus.$emit('ajaxError', err)
+        // EventBus.$emit('ajaxError', err) TODO
       }
     }
   }
