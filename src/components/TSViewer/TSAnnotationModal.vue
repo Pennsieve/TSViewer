@@ -109,7 +109,7 @@ import { ref, computed, watch, defineAsyncComponent } from 'vue'
 import { propOr } from 'ramda'
 import { useViewerStore } from '@/stores/tsviewer'
 import { storeToRefs } from 'pinia'
-import IconSelection from "../icons/IconSelection"
+import IconSelection from "../icons/IconSelection.vue"
 
 // Async component imports
 const BfButton = defineAsyncComponent(() => import('@/components/shared/bf-button/BfButton.vue'))
