@@ -19,9 +19,6 @@ export default {
     viewerChannels() {
       return this.viewerStore.viewerChannels;
     },
-    viewerSidePanelOpen() {
-      return this.viewerStore.viewerSidePanelOpen;
-    },
     viewerAnnotations() {
       return this.viewerStore.viewerAnnotations;
     },

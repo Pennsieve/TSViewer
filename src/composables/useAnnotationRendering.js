@@ -15,8 +15,6 @@ export function useAnnotationRendering() {
     const focusedAnn = ref(null)
     const a11yList = ref(['#FFFF4E'])
 
-    const config = computed(() => viewerStore.config)
-
     const computeRenderOptions = (anns, props) => {
         const annotationHeight = props.constants?.ANNOTATIONLABELHEIGHT || 20
         const halfAnnotationHeight = (annotationHeight / 2) | 0
@@ -226,7 +224,7 @@ export function useAnnotationRendering() {
 
         if (fileType === 'PNG') {
             const { id, packageId } = preview
-            const apiUrl = config.value.apiUrl
+            const apiUrl = viewerStore.config.apiUrl
             try {
                 const token = await useToken()
                 img.src = `${apiUrl}/packages/${packageId}/files/${id}/presign/?api_key=${token}`

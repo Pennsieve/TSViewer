@@ -14,7 +14,6 @@
       :start="start"
       :duration="duration"
       :constants="constants"
-      :config="config"
       :active-viewer="activeViewer"
       @setStart="updateStart"
     />
@@ -65,7 +64,6 @@
         :cursor-loc="cursorLoc"
         :global-zoom-mult="globalZoomMult"
         :active-viewer="activeViewer"
-        :config="config"
         @setStart="updateStart"
         @setCursor="setCursor"
         @setGlobalZoom="setGlobalZoom"
@@ -142,6 +140,7 @@ import {
 } from 'ramda'
 
 import { useViewerStore } from "@/stores/tsviewer"
+import { useTsAnnotation } from '@/composables/useTsAnnotation'
 
 // Component imports (required for <script setup>)
 const TimeseriesScrubber = defineAsyncComponent(() => import('@/components/TSViewer/TSScrubber.vue'))
@@ -226,11 +225,10 @@ const annotationWindowOpen = ref(false)
 const annotationLayerWindowOpen = ref(false)
 const annotationDelete = ref(null)
 const isTsAnnotationDeleteDialogVisible = ref(false)
+const filterWindowOpen = ref(false)
 
 // Computed properties
-const activeViewer = computed(() => props.pkg)
-const viewerSidePanelOpen = computed(() => props.sidePanelOpen)
-const config = computed(() => viewerStore.config)
+const activeViewer = computed(() => viewerStore.activeViewer)
 
 const reactiveViewerChannels = computed(() => {
   return viewerChannels.value.map(channel => ({
@@ -310,15 +308,6 @@ watch( () => activeViewer.value, async (newValue, oldValue ) => {
   }
 
 }, {immediate: false, deep: true})
-
-
-
-watch(viewerSidePanelOpen, () => {
-  // Only call onResize if component is mounted and elements exist
-  if (ts_viewer.value) {
-    onResize()
-  }
-}, { immediate: false })
 
 // Watch for changes in number of visible channels
 watch(nrVisChannels, (newCount, oldCount) => {

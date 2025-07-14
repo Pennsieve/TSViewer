@@ -13,7 +13,6 @@
         :rs-period="rsPeriod"
         :global-zoom-mult="globalZoomMult"
         :active-viewer="activeViewer"
-        :config="config"
         @channelsInitialized="channelsInitialized"
         @setGlobalZoom="setGlobalZoom"
       >
@@ -123,7 +122,6 @@ const props = defineProps({
   tsEnd: Number,
   cursorLoc: Number,
   activeViewer: { type: Object, required: true },
-  config: { type: Object, required: true }
 })
 
 // Define emits

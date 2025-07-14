@@ -115,7 +115,7 @@ export function useTsAnnotation() {
 
         // Use correct property for timeseries ID
         const timeseriesId = viewerStore.activeViewer.value.content.id
-        const url = `${config.value.apiUrl}/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
+        const url = `${viewerStore.config.apiUrl}/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
 
         console.log('🔧 useTsAnnotation: API URL:', url)
 
@@ -220,7 +220,7 @@ export function useTsAnnotation() {
         console.log('🔧 useTsAnnotation: Update API payload:', apiPayload)
 
         const timeseriesId = viewerStore.activeViewer.value.content.id
-        const url = `${config.value.apiUrl}/timeseries/${timeseriesId}/layers/${annotationData.layer_id}/annotations/${annotationData.id}`
+        const url = `${viewerStore.config.apiUrl}/timeseries/${timeseriesId}/layers/${annotationData.layer_id}/annotations/${annotationData.id}`
 
         console.log('🔧 useTsAnnotation: Update API URL:', url)
 
@@ -279,7 +279,7 @@ export function useTsAnnotation() {
         }
 
         const timeseriesId = viewerStore.activeViewer.value.content.id
-        const url = `${config.value.apiUrl}/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`
+        const url = `${viewerStore.config.apiUrl}/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`
 
         console.log('🔧 useTsAnnotation: Delete API URL:', url)
 
@@ -314,10 +314,7 @@ export function useTsAnnotation() {
     return {
         // Computed properties
         viewerChannels, // Now from Pinia
-        viewerSidePanelOpen,
         viewerAnnotations, // Now from Pinia
-        activeAnnotation,
-        config,
 
         // Methods
         addAnnotation,

@@ -49,7 +49,6 @@ const props = defineProps({
   duration: Number,
   cursorLoc: Number,
   labelWidth: Number,
-  config: Object,
   activeViewer: Object
 })
 
@@ -77,7 +76,6 @@ const annotations = ref([])
 const segmentSpans = ref([])
 const segments = ref([])
 const isInitializing = ref(false)
-
 // Additional mouse tracking data
 const clickX = ref(0)
 const startDragTime = ref(0)
@@ -359,7 +357,7 @@ const initSegmentSpans = () => {
     return
   }
 
-  if (!props.config?.timeSeriesApi) {
+  if (!viewerStore.config?.timeSeriesApi) {
     console.warn('TSScrubber: Cannot init segment spans - no timeSeriesApi configured')
     return
   }
@@ -382,7 +380,7 @@ const _requestSegmentSpan = async (channel, channelIdx, start, end, ix) => {
   const max_recursion = props.constants['MAXRECURSION']
 
   // Validate inputs before making API call
-  if (!props.config?.timeSeriesApi) {
+  if (!viewerStore.config?.timeSeriesApi) {
     console.warn('TSScrubber: Cannot request segment span - no timeSeriesApi configured')
     return
   }
@@ -394,7 +392,7 @@ const _requestSegmentSpan = async (channel, channelIdx, start, end, ix) => {
 
   try {
     const token = await useToken()
-    const url = `${props.config.timeSeriesApi}/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`
+    const url = `${viewerStore.config.timeSeriesApi}/ts/retrieve/segments?session=${token}&channel=${channel}&start=${start}&end=${end}`
 
     console.log(`TSScrubber: Fetching segments for channel ${channel} (${channelIdx})`)
     const resp = await useSendXhr(url)
@@ -488,7 +486,7 @@ const getAnnotations = async () => {
     return
   }
 
-  if (!props.config?.apiUrl) {
+  if (!viewerStore.config?.apiUrl) {
     console.warn('TSScrubber: Cannot get annotations - no API URL configured')
     annotations.value = []
     return
@@ -505,7 +503,7 @@ const getAnnotations = async () => {
     const token = await useToken()
     const layerIds = map(obj => obj.id, viewerStore.viewerAnnotations)
     const endTime = props.ts_end
-    const baseUrl = `${props.config.apiUrl}/timeseries/${currentViewerId}/annotations/window`
+    const baseUrl = `${viewerStore.config.apiUrl}/timeseries/${currentViewerId}/annotations/window`
     let url = baseUrl + `?api_key=${token}&aggregation=count&start=${props.ts_start}&end=${props.ts_end}&period=${period.value}&mergePeriods=true`
 
     for (let i in layerIds) {

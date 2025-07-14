@@ -1,5 +1,5 @@
 // composables/useAnnotationLayers.js
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useViewerStore } from '@/stores/tsviewer'
 import { useToken } from "@/composables/useToken"
 import { useHandleXhrError, useSendXhr } from "@/mixins/request/request_composable"
@@ -15,8 +15,6 @@ export function useAnnotationLayers() {
         '#8A6ECF', '#389BAD', '#187D46', '#B12800', '#0C2475', '#FF5321', '#FF99CC', '#DCC180',
         '#FF6C21', '#000000', '#9B9B9B', '#00FF00', '#FA8072', '#808000', '#A0522D', '#2760FF'
     ])
-
-    const config = computed(() => viewerStore.config)
 
     const initializeLayers = async (response, emit) => {
         const annLayers = []
@@ -61,7 +59,7 @@ export function useAnnotationLayers() {
     const createAnnotationLayer = async (newLayer, activeViewer, emit) => {
         try {
             const token = await useToken()
-            const url = `${config.value.apiUrl}/timeseries/${activeViewer.content.id}/layers?api_key=${token}`
+            const url = `${viewerStore.config.apiUrl}/timeseries/${activeViewer.content.id}/layers?api_key=${token}`
 
             const response = await useSendXhr(url, {
                 method: "POST",
@@ -145,7 +143,7 @@ export function useAnnotationLayers() {
     const deleteLayer = async (layerId, activeViewer) => {
         try {
             const token = await useToken()
-            const url = `${config.value.apiUrl}/timeseries/${activeViewer.content.id}/layers/${layerId}?api_key=${token}`
+            const url = `${viewerStore.config.apiUrl}/timeseries/${activeViewer.content.id}/layers/${layerId}?api_key=${token}`
 
             await useSendXhr(url, { method: "DELETE" })
 
@@ -166,7 +164,7 @@ export function useAnnotationLayers() {
     const updateLayerColor = async (layerId, newColor, activeViewer) => {
         try {
             const token = await useToken()
-            const url = `${config.value.apiUrl}/timeseries/${activeViewer.content.id}/layers/${layerId}?api_key=${token}`
+            const url = `${viewerStore.config.apiUrl}/timeseries/${activeViewer.content.id}/layers/${layerId}?api_key=${token}`
 
             const response = await useSendXhr(url, {
                 method: "PUT",
@@ -193,7 +191,7 @@ export function useAnnotationLayers() {
     const loadLayers = async (activeViewer, emit) => {
         try {
             const token = await useToken()
-            const url = `${config.value.apiUrl}/timeseries/${activeViewer.content.id}/layers?api_key=${token}`
+            const url = `${viewerStore.config.apiUrl}/timeseries/${activeViewer.content.id}/layers?api_key=${token}`
             const response = await useSendXhr(url)
             await initializeLayers(response, emit)
             return response

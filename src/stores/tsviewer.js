@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import * as site from "@/site-config/site.json";
 import { propEq, findIndex } from 'ramda'
+import { useToken } from '@/composables/useToken'
 
 export const useViewerStore = defineStore('tsviewer', () => {
 
@@ -75,7 +76,7 @@ export const useViewerStore = defineStore('tsviewer', () => {
 
     // Actions
     const setActiveViewer = (viewer) => {
-      activeViewer = viewer;
+      activeViewer.value = viewer;
     }
 
     const setChannels = (channels) => {
@@ -109,11 +110,18 @@ export const useViewerStore = defineStore('tsviewer', () => {
       const url = `https://api.pennsieve.net/packages/${id}?api_key=${token}`;
       const response = await useSendXhr(url);
       
-      if (this.isTSFileProcessed(response)) {
-        this.setActiveViewer(response);
+      if (isTSFileProcessed(response)) {
+        setActiveViewer(response);
         return Promise.resolve(response);
       } else {
         throw new Error('Timeseries viewer is not available, since the file is not processed');
+      }
+    }
+
+    const isTSFileProcessed = () => {
+      return (record) => {
+        const fileState = record?.content?.state;
+        return fileState === "READY";
       }
     }
 
@@ -297,6 +305,7 @@ export const useViewerStore = defineStore('tsviewer', () => {
         activeAnnotationLayer.value = {}
         activeAnnotation.value = {}
         viewerActiveTool.value = 'POINTER'
+        activeViewer.value = {}
     }
 
     const triggerRerender = (cause) => {
@@ -321,6 +330,7 @@ export const useViewerStore = defineStore('tsviewer', () => {
         viewerAnnotations,
         activeAnnotationLayer,
         activeAnnotation,
+        activeViewer,
         viewerActiveTool,
         config,
 
@@ -353,6 +363,9 @@ export const useViewerStore = defineStore('tsviewer', () => {
         validateAnnotationLayers,
         resetViewer,
         triggerRerender,
-        resetRerenderTrigger
+        resetRerenderTrigger,
+        isTSFileProcessed,
+        fetchAndSetActiveViewer,
+        setActiveViewer
     }
 })

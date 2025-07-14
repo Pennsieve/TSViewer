@@ -15,8 +15,6 @@ export function useAnnotationData() {
     const cachedAnnRange = ref([])
     const annLayerInfo = ref([])
 
-    const config = computed(() => viewerStore.config)
-
     const getChannelId = (channel) => {
         const isViewingMontage = viewerMontageScheme.value !== 'NOT_MONTAGED'
         let id = propOr('', 'id', channel)
@@ -95,7 +93,7 @@ export function useAnnotationData() {
 
                     try {
                         const token = await useToken()
-                        const apiUrl = config.value.apiUrl
+                        const apiUrl = viewerStore.config.apiUrl
                         const baseUrl = `${apiUrl}/timeseries/${activeViewer.content.id}/layers/${curLayer.id}/annotations?api_key=${token}`
                         const urlParams = Object.keys(params).map(k => `&${k}=${params[k]}`).join('')
                         const url = `${baseUrl}${urlParams}`

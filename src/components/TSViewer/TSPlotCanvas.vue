@@ -45,13 +45,10 @@ const props = defineProps({
   ts_end: { type: Number, required: true },
   globalZoomMult: { type: Number, required: true },
   activeViewer: { type: Object, required: true },
-  config: { type: Object, required: true }
 })
 
 const emit = defineEmits(['channelsInitialized', 'setGlobalZoom'])
 
-
-const config = computed(() => props.config || {})
 const activeViewer = computed( () => props.activeViewer || {})
 const baseChannels = computed(() => activeViewer.value?.channels || [])
 
@@ -665,7 +662,7 @@ const initPlotCanvas = async () => {
 
       // Make sure this waits for the connection to complete
       await openWebsocket(
-        config.value.timeSeriesUrl,
+        viewerStore.config.timeSeriesUrl,
         activeViewer.value.content.id,
         userToken,
       )
