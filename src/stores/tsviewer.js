@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import * as site from "@/site-config/site.json";
 import { propEq, findIndex } from 'ramda'
 import { useToken } from '@/composables/useToken'
+import { useSendXhr } from "@/mixins/request/request_composable"
 
 export const useViewerStore = defineStore('tsviewer', () => {
 
