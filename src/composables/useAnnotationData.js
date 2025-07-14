@@ -1,11 +1,11 @@
 // composables/useAnnotationData.js
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useViewerStore } from '@/stores/tsviewer'
 import { storeToRefs } from 'pinia'
 import { useToken } from "@/composables/useToken"
-import { useHandleXhrError, useSendXhr } from "@/mixins/request/request_composable"
-import { pathOr, propOr, find, propEq, defaultTo, head } from 'ramda'
-import { sortAnnotations, annIndexOf } from '@/utils/annotationUtils'
+import { useHandleXhrError } from "@/mixins/request/request_composable"
+import { pathOr, propOr, head } from 'ramda'
+import { annIndexOf } from '@/utils/annotationUtils'
 
 export function useAnnotationData() {
     const viewerStore = useViewerStore()
