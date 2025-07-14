@@ -1,10 +1,12 @@
 <template>
     <el-dialog
-        class="timeseries-annotation-layer-modal" 
+        @update:modelValue="visible = $event"
+        :model-value="visible"
+        @close='close'
+        class="timeseries-annotation-layer-modal"
         ref="timeseries-filter-modal"
         title="Annotation Layers"
-        :open="annotationLayerWindowOpen"
-        @close='close'>
+        >
 
       <template #default>
         <div slot="body">
@@ -27,10 +29,11 @@
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
-                        <span style="float: left">
-                            <circle-icon class="team-avatar" icon="icon-color" :currentColor="item.value"></circle-icon>
-                        </span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.label }}</span>
+                <div class="color-option">
+                  <div :style="{ backgroundColor: item.value, height:'30px', width:'30px', borderRadius:'50%' }"/>
+                  <div style="float: right; color: #8492a6; font-size: 13px">{{ item.label }}</div>
+                </div>
+
               </el-option>
             </el-select>
           </div>
@@ -62,29 +65,22 @@
 </template>
 
 <script>
-    import CircleIcon from "../Shared/CircleIcon/CircleIcon.vue";
-    import BfButton from "../Shared/BfButton/BfButton.vue";
+
+    import CircleIcon from "../icons/CircleIcon/CircleIcon.vue";
+    import BfButton from "../shared/bf-button/BfButton.vue";
 
     export default {
-        name: 'TSViewerLayerWindow',
+        name: 'AnnotationLayerWindow',
 
         components:{
           CircleIcon,
           BfButton
         },
-
-        mixins: [
-        ],
-        watch: {
-
-        },
-        computed: {
-            activeViewer() {
-                return this.viewerStore.activeViewer;
-            },
-        },
         props: {
-            annotationLayerWindowOpen: Boolean
+            visible: {
+              type: Boolean,
+              default: false
+            },
         },
         data: function () {
             return {
@@ -212,12 +208,12 @@
                         iconBgColor: '#A0522D'
                     }
                 ]
-            }                
+            }
         },
 
         methods: {
             close: function() {
-                this.$emit('closeWindow')
+                this.$emit('close-window')
             },
             handleFormSubmit: function () {
                 this.$emit('createLayer', {name:this.name, color:this.selectedColor})
@@ -232,7 +228,13 @@
 </script>
 
 <style lang="scss" scoped>
-    @import'../../assets/tsviewerVariables.scss';
+@import '../../assets/tsviewerVariables.scss';
+
+    .color-option {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     .timeseries-annotation-modal {
         display: block;

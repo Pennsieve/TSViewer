@@ -1,4 +1,4 @@
-import { useViewerStore } from '../../stores/viewerStore'
+import { useViewerStore } from '../../stores/tsviewer'
 
 export default {
   computed: {

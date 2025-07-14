@@ -1,0 +1,6 @@
+{
+  "apiUrl": "https://api.pennsieve.net",
+  "api2Url": "https://api2.pennsieve.net",
+  "timeSeriesUrl": "wss://api.pennsieve.net/streaming/ts/query",
+  "timeSeriesApi": "https://api.pennsieve.net/streaming"
+}
