@@ -45,14 +45,14 @@
         <div slot="footer">
           <div class="button-wrapper">
             <div class="buttons">
-              <bf-button
+              <bf-library-button
                 @click="handleFormCancel"
               >Cancel
-              </bf-button>
-              <bf-button
+              </bf-library-button>
+              <bf-library-button
                 @click="handleFormSubmit"
               >Save
-              </bf-button>
+              </bf-library-button>
             </div>
           </div>
 
@@ -67,14 +67,14 @@
 <script>
 
     import CircleIcon from "../icons/CircleIcon/CircleIcon.vue";
-    import BfButton from "../shared/bf-button/BfButton.vue";
+    import BfLibraryButton from "../shared/bf-library-button/BfLibraryButton.vue";
 
     export default {
         name: 'AnnotationLayerWindow',
 
         components:{
           CircleIcon,
-          BfButton
+          BfLibraryButton
         },
         props: {
             visible: {
