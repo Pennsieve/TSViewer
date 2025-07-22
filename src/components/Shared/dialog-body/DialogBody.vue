@@ -85,7 +85,7 @@
     display: flex;
     margin-top: 16px;
     justify-content: center;
-    .bf-button{
+    .bf-library-button{
       margin-left: 8px;
     }
   }
