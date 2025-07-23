@@ -140,7 +140,7 @@ export const useChannelProcessing = (baseChannels, viewerMontageScheme, workspac
                 const baseChannel = findBaseChannel(id)
                 if (!baseChannel) {
                     console.warn(`❌ Base channel not found for ID: ${id}, available base channels:`,
-                        baseChannels.value?.map(ch => ({ id: ch.content?.id, name: ch.content?.name })) || []
+                        baseChannels.value?.map(ch => ({ id: ch?.id, name: ch?.name })) || []
                     )
                     processingStats.errors++
                     return null
@@ -197,7 +197,7 @@ export const useChannelProcessing = (baseChannels, viewerMontageScheme, workspac
             return channelCache.value.get(channelId)
         }
 
-        const baseChannel = baseChannels.value?.find(ch => ch.content?.id === channelId)
+        const baseChannel = baseChannels.value?.find(ch => ch?.id === channelId)
 
         if (baseChannel) {
             channelCache.value.set(channelId, baseChannel)
@@ -237,13 +237,13 @@ export const useChannelProcessing = (baseChannels, viewerMontageScheme, workspac
             id: uniqueId,            // ✅ Unique for client-side operations
             serverId: serverId,      // ✅ What server provided/expects
             name,
-            channelType: baseChannel.content.channelType,
+            channelType: baseChannel.channelType,
             label: name,
             displayName,
-            unit: baseChannel.content.unit,
-            rate: baseChannel.content.rate,
-            start: baseChannel.content.start,
-            end: baseChannel.content.end,
+            unit: baseChannel.unit,
+            rate: baseChannel.rate,
+            start: baseChannel.start,
+            end: baseChannel.end,
             // Additional metadata
             montageScheme: isViewingMontage.value ? viewerMontageScheme.value : 'NOT_MONTAGED',
             isMontaged: isViewingMontage.value,
@@ -264,7 +264,7 @@ export const useChannelProcessing = (baseChannels, viewerMontageScheme, workspac
         if (montageSchemeName === "NOT_MONTAGED") {
             return {
                 montage: "NOT_MONTAGED",
-                packageId: activeViewer.value?.content?.id,
+                packageId: activeViewer.value?.id,
                 montageMap: []
             }
         }
@@ -282,7 +282,7 @@ export const useChannelProcessing = (baseChannels, viewerMontageScheme, workspac
 
         return {
             montage: "CUSTOM_MONTAGE",
-            packageId: activeViewer.value?.content?.id,
+            packageId: activeViewer.value?.content.id,
             montageMap: montageMap
         }
     }

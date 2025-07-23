@@ -656,13 +656,13 @@ const initPlotCanvas = async () => {
     requestedPages
   )
 
-  if (activeViewer.value?.content?.id) {
+  if (activeViewer.value?.content.id) {
     try {
       console.log('🔄 Opening WebSocket connection for package:', activeViewer.value.content.id)
 
       // Make sure this waits for the connection to complete
       await openWebsocket(
-        viewerStore.config.timeSeriesUrl,
+        viewerStore.config.timeSeriesPublicUrl,
         activeViewer.value.content.id,
         userToken,
       )
@@ -680,7 +680,7 @@ const initPlotCanvas = async () => {
   }
 
   console.log('🚀 TSPlotCanvas mounted with config:', {
-    activeViewerId: activeViewer.value?.content?.id,
+    activeViewerId: activeViewer.value?.content.id,
     initialMontage: viewerMontageScheme.value,
     baseChannelCount: baseChannels.value?.length || 0,
     viewport: {
