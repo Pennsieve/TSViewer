@@ -1,11 +1,11 @@
 <template>
   <button
-    class="bf-button"
+    class="bf-library-button"
     :disabled="disabled || processing"
     :autofocus="autofocus"
     :type="type"
     :class="[
-      type ? 'bf-button--' + type : '',
+      type ? 'bf-library-button--' + type : '',
       hasPrefixSlot ? 'hasPrefix' : '',
     ]"
   >
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "BfButton",
+  name: "BfLibraryButton",
 
   props: {
     type: {
@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../assets/tsviewerVariables.scss';
 
-.bf-button {
+.bf-library-button {
   align-items: center;
   background: $app-primary-color;
   border: 1px solid transparent;

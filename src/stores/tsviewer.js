@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import * as site from "@/site-config/site.json";
 import { propEq, findIndex } from 'ramda'
 import { useToken } from '@/composables/useToken'
-import { useSendXhr } from "@/mixins/request/request_composable"
+import { useChannelDataRequest } from '@/composables/useChannelDataRequest';
 
 export const useViewerStore = defineStore('tsviewer', () => {
 
@@ -22,6 +22,8 @@ export const useViewerStore = defineStore('tsviewer', () => {
     const activeAnnotationLayer = ref({})
     const activeAnnotation = ref({})
     const viewerActiveTool = ref('POINTER')
+
+    const { openConnection } = useChannelDataRequest()
 
     // Getters (from original Vuex getters)
     const getMontageMessageByName = computed(() => {
@@ -108,15 +110,10 @@ export const useViewerStore = defineStore('tsviewer', () => {
     const fetchAndSetActiveViewer = async (data) => {
       const id = data.packageId;
       const token = await useToken();
-      const url = `https://api.pennsieve.net/packages/${id}?api_key=${token}`;
-      const response = await useSendXhr(url);
-      
-      if (isTSFileProcessed(response)) {
-        setActiveViewer(response);
-        return Promise.resolve(response);
-      } else {
-        throw new Error('Timeseries viewer is not available, since the file is not processed');
-      }
+      let urlSegment = config.timeSeriesPublicUrl
+      let channelData = null;
+      channelData = await openConnection(urlSegment, id, token)
+      setActiveViewer({channels: channelData.res, content : { id: id}})
     }
 
     const isTSFileProcessed = () => {

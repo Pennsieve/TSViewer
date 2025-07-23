@@ -72,7 +72,7 @@ export default {
       // this.unSelectAnnotations(null, false);
 
       // Send ADD annotation request to server
-      const timeseriesId = this.activeViewer.content.nodeId
+      const timeseriesId = this.activeViewer.content.id
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${layer_id}/annotations`
 
       useToken()
@@ -146,7 +146,7 @@ export default {
       }
 
       const annLayerId = this.activeAnnotation.layer_id
-      const timeseriesId = this.activeViewer.content.nodeId
+      const timeseriesId = this.activeViewer.content.id
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${this.activeAnnotation.id}`;
 
       const XhrBody = {
@@ -184,7 +184,7 @@ export default {
       } else {
         annLayerId = annotation.layer_id
       }
-      const timeseriesId = this.activeViewer.content.nodeId
+      const timeseriesId = this.activeViewer.content.id
       const url = `https://api.pennsieve.net/timeseries/${timeseriesId}/layers/${annLayerId}/annotations/${annotation.id}`;
 
       const self = this

@@ -184,7 +184,7 @@ watch(() => viewerStore.viewerAnnotations, (newAnnotations, oldAnnotations) => {
     nextTick(() => {
       getAnnotations()
     })
-  } else if (newAnnotations && newAnnotations.length > 0 && !oldAnnotations && props.activeViewer?.content?.id) {
+  } else if (newAnnotations && newAnnotations.length > 0 && !oldAnnotations && props.activeViewer?.content.id) {
     // Special case: annotation layers just became available and we have an active viewer
     console.log('TSScrubber: Annotation layers now available, fetching annotations')
     nextTick(() => {
@@ -477,7 +477,7 @@ const _requestSegmentSpan = async (channel, channelIdx, start, end, ix) => {
 
 const getAnnotations = async () => {
   // Store the viewer ID at the start to check consistency later
-  const currentViewerId = props.activeViewer?.content?.id
+  const currentViewerId = props.activeViewer?.content.id
 
   // Validate that we have the required data before making API call
   if (!currentViewerId) {
@@ -514,7 +514,7 @@ const getAnnotations = async () => {
     const resp = await useSendXhr(url)
 
     // Double-check that we're still on the same viewer (async operations can be overtaken)
-    if (props.activeViewer?.content?.id === currentViewerId) {
+    if (props.activeViewer?.content.id === currentViewerId) {
       annotations.value = resp
       render()
     } else {

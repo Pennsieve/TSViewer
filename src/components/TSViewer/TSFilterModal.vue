@@ -49,8 +49,8 @@
 
           </div>
           <div class="buttons">
-            <bf-button @click="submitForm">Set Filter
-            </bf-button>
+            <bf-library-button @click="submitForm">Set Filter
+            </bf-library-button>
           </div>
         </div>
 
@@ -70,7 +70,7 @@ export default {
   name: 'TimeseriesFilterModal',
 
   components: {
-    'bf-button': () => import('@/components/shared/bf-button/BfButton.vue'),
+    'bf-library-button': () => import('@/components/shared/bf-library-button/BfLibraryButton.vue'),
     IconSelection
   },
 

@@ -93,10 +93,10 @@
 
         </div>
         <div class="buttons">
-          <bf-button
+          <bf-library-button
             @click="submitForm"
           > {{ actionButtonText }}
-          </bf-button>
+          </bf-library-button>
         </div>
       </div>
 
@@ -112,7 +112,7 @@ import { storeToRefs } from 'pinia'
 import IconSelection from "../icons/IconSelection.vue"
 
 // Async component imports
-const BfButton = defineAsyncComponent(() => import('@/components/shared/bf-button/BfButton.vue'))
+const BfLibraryButton = defineAsyncComponent(() => import('@/components/shared/bf-library-button/BfLibraryButton.vue'))
 
 // Define props
 const props = defineProps({
@@ -323,7 +323,7 @@ const getUTCTimeString = (d) => {
 // Register components
 const components = {
   IconSelection,
-  'bf-button': BfButton
+  'bf-library-button': BfLibraryButton
 }
 </script>
 

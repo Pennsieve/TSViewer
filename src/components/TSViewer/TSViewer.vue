@@ -649,15 +649,15 @@ const initTimeRange = () => {
 
   if (channels && channels.length > 0) {
     // Find Global start and end from channel data
-    ts_start.value = channels[0].content.start
-    ts_end.value = channels[0].content.end
+    ts_start.value = channels[0].start
+    ts_end.value = channels[0].end
 
     for (let ic = 1; ic < channels.length; ic++) {
-      if (channels[ic].content.start < ts_start.value) {
-        ts_start.value = channels[ic].content.start
+      if (channels[ic].start < ts_start.value) {
+        ts_start.value = channels[ic].start
       }
-      if (channels[ic].content.end > ts_end.value) {
-        ts_end.value = channels[ic].content.end
+      if (channels[ic].end > ts_end.value) {
+        ts_end.value = channels[ic].end
       }
     }
 

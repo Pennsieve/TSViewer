@@ -30,19 +30,19 @@
       </template>
 
       <div class="dialog-simple-buttons">
-        <bf-button
+        <bf-library-button
           class="secondary"
           @click="close"
         >
           Cancel
-        </bf-button>
-        <bf-button
+        </bf-library-button>
+        <bf-library-button
           class="red"
           :processing="isProcessing"
           @click="removeAnnotation"
         >
           {{ btnDeleteCopy }}
-        </bf-button>
+        </bf-library-button>
       </div>
     </dialog-body>
   </el-dialog>
@@ -55,7 +55,7 @@ import {
 
 import BfDialogHeader from '@/components/shared/bf-dialog-header/BfDialogHeader.vue'
 import DialogBody from '@/components/shared/dialog-body/DialogBody.vue'
-import BfButton from '@/components/shared/bf-button/BfButton.vue'
+import BfLibraryButton from '@/components/shared/bf-library-button/BfLibraryButton.vue'
 import IconWarningCircle from '@/components/icons/IconWarningCircle.vue'
 
 export default {
@@ -64,7 +64,7 @@ export default {
   components: {
     BfDialogHeader,
     DialogBody,
-    BfButton,
+    BfLibraryButton,
     IconWarningCircle
   },
 
