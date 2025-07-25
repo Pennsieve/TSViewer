@@ -14,7 +14,7 @@ yarn add tsviewer
 
 ## **🚀 Usage**
 
-### **1. Import the Component and Styles**
+### **1. Import the Component, Styles and Pinia store module**
 
 In your Vue 3 component or layout setup:
 
@@ -27,16 +27,14 @@ import 'tsviewer/style'
 
 Before rendering `<tsviewer />`, you must initialize it by calling `fetchAndSetActiveViewer()` from the store. This ensures the viewer has the correct context.
 
-You need to provide two string parameters:
+You need to provide the following string parameter:
 - **packageId**: The unique identifier for the package to load.
-- **packageType**: The type or category of the package.
 
 ```javascript
 const viewerStore = useViewerStore()
 
 await viewerStore.fetchAndSetActiveViewer({
   packageId: packageId.value,
-  packageType: packageType.value
 })
 ```
 
@@ -61,7 +59,6 @@ import { useViewerStore, TSViewer } from 'tsviewer'
 import 'tsviewer/style'
 
 const packageId = ref('your-package-id')
-const packageType = ref('your-package-type')
 const isViewerReady = ref(false)
 
 const viewerStore = useViewerStore()
@@ -69,18 +66,13 @@ const viewerStore = useViewerStore()
 onMounted(async () => {
   await viewerStore.fetchAndSetActiveViewer({
     packageId: packageId.value,
-    packageType: packageType.value
   })
   isViewerReady.value = true
 })
 </script>
 
 <template>
-  <TSViewer v-if="isViewerReady" />
-</template>
-
-<template>
-  <tsviewer />
+  <tsviewer v-if="isViewerReady"/>
 </template>
 ```
 

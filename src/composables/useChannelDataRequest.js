@@ -19,7 +19,6 @@ export const useChannelDataRequest = () => {
       ws.onclose = () => {
         console.log('🔌 WebSocket closed for package:', packageId)
         if (response && response.channelDetails) {
-          console.log('Channel details received:', response.channelDetails)
           resolve({res: response.channelDetails, status: 'websocket closed'})
         } else {
           console.warn('No channel details received')
