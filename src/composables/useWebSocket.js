@@ -129,7 +129,7 @@ export const useWebSocket = () => {
     }
 
     // ✅ FIX: Improved openWebsocket function
-    const openWebsocket = async (timeSeriesPublicUrl, pkgId, userToken) => {
+    const openWebsocket = async (timeseriesDiscoverApi, pkgId, userToken) => {
         // If there's already a connection in progress, wait for it
         if (connectionPromise) {
             console.log('🔄 Waiting for previous connection to finish...')
@@ -162,7 +162,7 @@ export const useWebSocket = () => {
         connectionPromise = new Promise(async (resolve, reject) => {
             try {
                 const token = userToken || await useToken()
-                const url = timeSeriesPublicUrl + '?session=' + token + '&package=' + packageId
+                const url = timeseriesDiscoverApi + '?session=' + token + '&package=' + packageId
 
                 const ws = new WebSocket(url)
                 websocket.value = ws
