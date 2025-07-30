@@ -1,14 +1,12 @@
 // @/stores/tsviewer.js
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import * as site from "@/site-config/site.json";
 import { propEq, findIndex } from 'ramda'
 import { useToken } from '@/composables/useToken'
 import { useChannelDataRequest } from '@/composables/useChannelDataRequest';
 
 export const useViewerStore = defineStore('tsviewer', () => {
-
-    const config = site
+    const config = reactive({})
     const viewerChannels = ref([])
     const viewerMontageScheme = ref('NOT_MONTAGED')
     const customMontageMap = ref({})
@@ -107,10 +105,14 @@ export const useViewerStore = defineStore('tsviewer', () => {
         needsRerender.value = renderData
     }
 
+    const setViewerConfig = (newConfig) => {
+        Object.assign(config, newConfig)
+    }
+
     const fetchAndSetActiveViewer = async (data) => {
       const id = data.packageId;
       const token = await useToken();
-      let urlSegment = config.timeSeriesPublicUrl
+      let urlSegment = config.timeseriesDiscoverApi
       let channelData = null;
       channelData = await openConnection(urlSegment, id, token)
       setActiveViewer({channels: channelData.res, content : { id: id}})
@@ -304,6 +306,9 @@ export const useViewerStore = defineStore('tsviewer', () => {
         activeAnnotation.value = {}
         viewerActiveTool.value = 'POINTER'
         activeViewer.value = {}
+        Object.keys(config).forEach(key => {
+          delete config[key]
+        })
     }
 
     const triggerRerender = (cause) => {
@@ -364,6 +369,7 @@ export const useViewerStore = defineStore('tsviewer', () => {
         resetRerenderTrigger,
         isTSFileProcessed,
         fetchAndSetActiveViewer,
-        setActiveViewer
+        setActiveViewer,
+        setViewerConfig
     }
 })

@@ -662,7 +662,7 @@ const initPlotCanvas = async () => {
 
       // Make sure this waits for the connection to complete
       await openWebsocket(
-        viewerStore.config.timeSeriesPublicUrl,
+        viewerStore.config.timeseriesDiscoverApi,
         activeViewer.value.content.id,
         userToken,
       )
