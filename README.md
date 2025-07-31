@@ -25,7 +25,16 @@ import 'tsviewer/style'
 
 ### **2. Initialize the Viewer Store**
 
-Before rendering `<tsviewer />`, you must initialize it by calling `fetchAndSetActiveViewer()` from the store. This ensures the viewer has the correct context.
+Before rendering `<tsviewer />`, you must initialize it by calling `fetchAndSetActiveViewer()` from the store. This ensures the viewer has the correct context. Also we need to load the config for the viewer, and pass the param with following interface
+
+```javascript
+interface ViewerConfig {
+  timeseriesDiscoverApi: string;
+  apiUrl: string;
+  timeSeriesApi: string;
+}
+viewerStore.setViewerConfig(viewerConfig)
+```
 
 You need to provide the following string parameter:
 - **packageId**: The unique identifier for the package to load.
@@ -64,6 +73,12 @@ const isViewerReady = ref(false)
 const viewerStore = useViewerStore()
 
 onMounted(async () => {
+  const viewerConfig = {
+    timeseriesDiscoverApi: runtimeConfig.public.ts_streaming_host_websocket,
+    apiUrl: runtimeConfig.public.api_host,
+    timeSeriesApi: runtimeConfig.public.ts_streaming_host_http,
+  }
+  viewerStore.setViewerConfig(viewerConfig)
   await viewerStore.fetchAndSetActiveViewer({
     packageId: packageId.value,
   })
