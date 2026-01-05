@@ -274,8 +274,4 @@
         flex-direction:row;
         margin-right: 20px;
     }
-    h2 {
-        margin: 20px 30px 30px 30px;
-    }
-
 </style>

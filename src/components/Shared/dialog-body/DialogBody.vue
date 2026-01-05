@@ -62,12 +62,6 @@
     font-weight: bold;
     line-height: 16px;
     margin-bottom: 8px;
-
-    h2, h3 {
-      font-size: 14px;
-      line-height: 14px;
-      margin: 0;
-    }
   }
 
   .btn-third-option {

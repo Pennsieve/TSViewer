@@ -263,10 +263,6 @@ export default {
   }
 }
 
-h2 {
-  margin: 20px 30px 30px 30px;
-}
-
 .filter-input-wrapper {
   margin-top: 24px;
 }
