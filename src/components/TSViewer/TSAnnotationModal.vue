@@ -385,13 +385,6 @@ const components = {
   color: $red_1
 }
 
-h2 {
-  color: #000;
-  font-size: 14px;
-  list-style: 16px;
-  margin: 0 0 8px;
-}
-
 .layerSelect {
 
 }
